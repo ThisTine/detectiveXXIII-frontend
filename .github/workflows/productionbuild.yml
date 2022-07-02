@@ -2,8 +2,8 @@ name: ✨ Deploy to production
 
 on:
   push:
-    brances:
-    - 'main'
+    branches:
+      - main
 
 jobs:
   build: 
