@@ -30,8 +30,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE_PRODUCTION}}:latest
-          build-args: |
-          VITE_MODE=${{secrets.ENV_VITE_MODE}}
+          build-args: VITE_MODE=${{secrets.ENV_VITE_MODE}}
   
   deploy:
     name: deploy to server
