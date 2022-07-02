@@ -3,7 +3,7 @@ name: ✨ Deploy to production
 on:
   push:
     brances:
-    - main
+    - 'main'
 
 jobs:
   build: 

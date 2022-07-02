@@ -3,7 +3,7 @@ name: ✨ Deploy to staging
 on:
   push:
     brances:
-    - develop
+    - 'develop'
 
 jobs:
   build: 
