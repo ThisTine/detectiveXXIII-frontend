@@ -1,9 +1,9 @@
-name: ✨ Deploy to production
+name: ✨ Deploy to staging
 
 on:
   push:
-    brances:
-    - develop
+    branches:
+      - develop
 
 jobs:
   build: 

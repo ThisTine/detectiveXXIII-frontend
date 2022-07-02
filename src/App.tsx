@@ -1,18 +1,15 @@
-import { Container, Heading } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import { Route, Routes } from 'react-router-dom'
-
-import Home from './pages/Home'
-import Login from './pages/Login'
+import Soon from './pages/Soon'
 
 function App() {
 
   return (
     <Container w="100%" maxW={"container.lg"}>
-      <Heading>Hello from Frontend {import.meta.env.VITE_MODE}</Heading>
-      <Routes>
-        <Route path='/' element={<Home/>}  />
-        <Route path='login' element={<Login/>}/>
-      </Routes>
+      {/* <Routes>
+        <Route path='/' element={<Soon/>}  />
+      </Routes> */}
+      <Soon />
     </Container>
   )
 }
