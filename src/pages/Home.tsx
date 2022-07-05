@@ -1,11 +1,18 @@
-import React from 'react'
+import { Button, Heading } from '@chakra-ui/react'
+import { useContext } from 'react'
 import BoxContainer from '../components/BoxContainer'
+import userContext from '../context/userContext'
+import AppLayout from '../layouts/AppLayout'
 
 const Home = () => {
+  const {logout} = useContext(userContext)
   return (
-    <BoxContainer>
-    <div>Home</div>
-    </BoxContainer>
+    <AppLayout>
+      <BoxContainer>
+      <Heading>Home</Heading>
+      <Button onClick={logout} >Logout</Button>
+      </BoxContainer>
+    </AppLayout>
   )
 }
 

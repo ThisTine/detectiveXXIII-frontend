@@ -1,16 +1,19 @@
-import { Container } from '@chakra-ui/react'
-import { Route, Routes } from 'react-router-dom'
-import Soon from './pages/Soon'
+import { Routes, Route } from "react-router-dom"
+import { UserContextProvider } from "./context/userContext"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+
 
 function App() {
-
   return (
-    <Container w="100%" maxW={"container.lg"}>
-      {/* <Routes>
-        <Route path='/' element={<Soon/>}  />
-      </Routes> */}
-      <Soon />
-    </Container>
+    <UserContextProvider>
+      <Routes>
+        <Route path='/' element={<Home/>}  />
+        <Route path='/login' element={<Login/>} />
+      </Routes>
+    </UserContextProvider>
+
+
   )
 }
 
