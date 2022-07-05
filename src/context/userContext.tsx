@@ -1,10 +1,10 @@
 import {  useBoolean, useToast } from "@chakra-ui/react"
-import { createContext, memo, useCallback, useEffect, useState } from "react"
+import { createContext, useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useAxios from "../hooks/useAxios"
 import Loading from "../pages/Loading"
 
-type userType =  { id: String, username: String, email: String, hints: [], isPlayable: boolean, image: String, ingame:{partnercount: number, partnerinfo?:{username: String, image: String}[] } }
+type userType =  { id: String, username: String, email: String, hints: [], isPlayable: boolean, img: {type:"Buffer",data:number[]}, ingame:{partnercount: number, partnerinfo?:{username: String, image: String}[] } }
 
 const userContext = createContext<{user:userType|null,logout:()=>void}>({user:null,logout:()=>{}})
 
