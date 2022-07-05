@@ -23,7 +23,7 @@ jobs:
       - name: load ENV
         run: |
           touch .env
-          echo ${{secrets.CONTAINER_ENV_DEV}} > .env
+          echo '${{secrets.CONTAINER_ENV_DEV}}' > .env
 
       - name: 🏗️ Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
