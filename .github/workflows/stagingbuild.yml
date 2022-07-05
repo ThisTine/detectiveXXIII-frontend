@@ -20,6 +20,11 @@ jobs:
           username: ${{secrets.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}}
 
+      - name: load ENV
+        run: |
+          touch .env
+          echo ${{secrets.CONTAINER_ENV_DEV}} > .env
+
       - name: 🏗️ Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       
@@ -30,7 +35,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE_DEV}}:latest
-          build-args: VITE_MODE=${{secrets.ENV_VITE_MODE_DEV}} VITE_BASEURL=${{secrets.ENV_VITE_BASEURL_DEV}}
   
   deploy:
     name: deploy to server

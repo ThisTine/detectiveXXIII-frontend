@@ -6,12 +6,6 @@ COPY . .
 
 RUN npm install
 
-ARG VITE_MODE
-ARG VITE_BASEURL
-
-ENV VITE_MODE=$VITE_MODE
-ENV VITE_BASEURL=$VITE_BASEURL
-
 RUN npm run build
 
 FROM golang:alpine as serverbuilder
