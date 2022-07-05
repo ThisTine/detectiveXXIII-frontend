@@ -17,7 +17,7 @@ jobs:
       - name: load env
         run: |
           printf '${{secrets.CONTAINER_ENV_DEV}}' >> .env
-          cat .env
+          ls -a
 
       - name: login to docker
         uses: docker/login-action@v2
