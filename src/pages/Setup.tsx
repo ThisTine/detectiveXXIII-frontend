@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+type hints = string[]
 
 const Setup = () => {
-  return (
+    const [hints,sethints] = useState<hints>(["อันนี้ hint","อันนี้ก็ hints"])
+    return (
     <div>Setup</div>
   )
 }
