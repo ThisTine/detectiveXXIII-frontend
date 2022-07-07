@@ -18,7 +18,7 @@ export default extendTheme({
     styles:{
         global: ()=>({
             body: {
-                bgGradient: 'linear(to-br,#F9F5E0,#F0EBFE)'
+                bgGradient: 'linear(to-br,#FAFBCE,#E9D8FD)'
             }
         })
     }

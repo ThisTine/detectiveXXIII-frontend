@@ -19,7 +19,7 @@ export const UserContextProvider = (props:any)=>{
      const {data} = await axios.get("/user/init")
      setUser({...data})
     }catch(err){
-      navigate("/login",{replace:true})
+      // navigate("/login",{replace:true})
     }
   },[])
 
