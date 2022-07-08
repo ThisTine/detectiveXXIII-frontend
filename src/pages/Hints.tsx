@@ -34,7 +34,7 @@ const Hints = () => {
   const [hints] = useState<hints>(mockhints);
   const [life] = useState<life>(0);
   return (
-    <AppLayout nav flexDirection={"column"}>
+    <AppLayout nav flexDirection={"column"} maxW="md">
       <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
         1 of 10
       </Text>
@@ -55,7 +55,9 @@ const Hints = () => {
               borderColor="#A680FF"
               focusBorderColor="#A680FF"
               backgroundColor="rgba(255,255,255,0.4)"
+              shadow={20}
               rounded="full"
+              boxShadow="lg"
               htmlSize={22}
               width="auto"
               id="hint"
