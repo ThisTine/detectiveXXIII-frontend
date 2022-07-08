@@ -1,4 +1,4 @@
-import { Avatar, Button, Heading } from '@chakra-ui/react'
+import { Box, Avatar, Button, Heading } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import BoxContainer from '../components/BoxContainer'
 import userContext from '../context/userContext'
@@ -12,8 +12,10 @@ const Home = () => {
   return (
     <AppLayout nav >
       <BoxContainer Button={<PrimaryButton onClick={logout} >Logout</PrimaryButton>} >
-        <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
-        <Heading>Home</Heading>
+        <Box display='flex' flexDirection='column' alignItems='center' >
+          <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
+          <Heading>Home</Heading>
+        </Box>
       </BoxContainer>
     </AppLayout>
   )
