@@ -6,17 +6,14 @@ import AppLayout from '../layouts/AppLayout'
 import getImageUrl from '../functions/getImageUrl'
 import PrimaryButton from '../components/PrimaryButton'
 
-
-
 const Home = () => {
   const [mission] = useState<string>("go to Lx Build")
-  const {logout,user} = useContext(userContext)
+  const { logout, user } = useContext(userContext)
   return (
     <AppLayout nav >
       <BoxContainer Button={<PrimaryButton onClick={logout} >Logout</PrimaryButton>} >
-      <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
-      <Heading>Home</Heading>
-      
+        <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
+        <Heading>Home</Heading>
       </BoxContainer>
     </AppLayout>
   )
