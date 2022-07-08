@@ -1,6 +1,8 @@
-const MissionBox = () => {
+import { FC, ReactNode } from 'react'
+
+const MissionBox:FC<{children:ReactNode}> = ({children}) => {
   return (
-    <div>Mission Box</div>
+    <div>{children}</div>
   );
 }
 
