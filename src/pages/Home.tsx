@@ -1,4 +1,4 @@
-import { Flex, VStack, Box, Avatar, Button, Heading, FlexProps } from '@chakra-ui/react'
+import { Flex, VStack, Box, Avatar, Heading, FlexProps } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
 import MissionContainer from '../components/Home/MissionContainer'
 import userContext from '../context/userContext'
