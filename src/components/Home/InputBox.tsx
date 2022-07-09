@@ -1,7 +1,7 @@
 import { AlertIcon, Alert, Box, FormControl, Input, useToast, AlertTitle, AlertDescription, CloseButton, useDisclosure } from "@chakra-ui/react";
 import { useState, FC } from "react";
 
-const InputBox: FC = (props) => {
+const InputBox: FC<{qCode: string | null}> = ({qCode}) => {
 
   const [code, setCode] = useState('');
   // Is the code match with P'รหัส
@@ -40,7 +40,7 @@ const InputBox: FC = (props) => {
           bg='whiteAlpha.500'
           boxShadow='lg'
           borderRadius={60}
-          placeholder='PUT CODE HERE'
+          placeholder={qCode ? qCode : 'PUT CODE HERE'}
           textAlign={['center']}
           _placeholder={{
             color: '#AD89FF'
