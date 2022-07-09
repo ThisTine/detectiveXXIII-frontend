@@ -1,5 +1,6 @@
 import { Flex, VStack, Box, Avatar, Heading, FlexProps } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import MissionContainer from '../components/Home/MissionContainer'
 import userContext from '../context/userContext'
 import AppLayout from '../layouts/AppLayout'
