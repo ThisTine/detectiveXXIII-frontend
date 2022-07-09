@@ -31,6 +31,7 @@ const MissionContainer: FC<{
           justifyContent='center'
           flexDirection='column'
           gap='10'
+          as={htmlAs}
         >
           {MissionBox && <VStack transform={"translateY(-100%)"} >{MissionBox}</VStack>}
           {children}
