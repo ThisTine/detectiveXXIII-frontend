@@ -5,7 +5,7 @@ import MissionContainer from '../components/Home/MissionContainer'
 import userContext from '../context/userContext'
 import AppLayout from '../layouts/AppLayout'
 import getImageUrl from '../functions/getImageUrl'
-import PrimaryButton from '../components/PrimaryButton'
+import SubmitButton from '../components/Home/SubmitButton'
 import MissionBox from '../components/Home/MissionBox'
 import InputBox from '../components/Home/InputBox'
 
@@ -39,7 +39,7 @@ const Home = () => {
         <VStack width='100%'>
           <Heading color="#A680FF" mb="12">Guess your P'รหัส</Heading>
           <MissionContainer
-            Button={<PrimaryButton >Submit</PrimaryButton>}
+            Button={<SubmitButton >Submit</SubmitButton>}
             MissionBox={<MissionBox boxStyle={boxStyle}>{mission}</MissionBox>}
           >
             <Box {...globalStyle} gap='10' >
