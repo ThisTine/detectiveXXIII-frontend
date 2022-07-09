@@ -8,7 +8,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { FaLock, FaCheck } from "react-icons/fa";
-function HintCards({hints, id }:any) {
+function HintCards({hints }:any) {
   if(hints.isShow){
     return(
       <Box
@@ -34,7 +34,7 @@ function HintCards({hints, id }:any) {
           </Flex>
           <Flex flexDirection="column">
             <Heading as="h3" size="sm" fontWeight="semibold">
-              HINT {id + 1}
+              HINT {hints.id}
             </Heading>
             <UnorderedList>
               <ListItem color="#4f4f4f">{hints.hint}</ListItem>
@@ -74,7 +74,7 @@ function HintCards({hints, id }:any) {
           </Flex>
           <Flex flexDirection="column">
             <Heading as="h3" size="sm" fontWeight="semibold">
-              HINT {id + 1}
+              HINT {hints.id}
             </Heading>
             <UnorderedList>
               <ListItem color="#4f4f4f" filter="auto" blur="10px">{hints.hint}</ListItem>

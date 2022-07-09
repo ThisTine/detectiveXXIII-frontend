@@ -14,15 +14,15 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-type hints = { userId: 1 | 2; hint: string; isShow: boolean }[];
+type hints = { userId: 1 | 2; hint: string; isShow: boolean; id:number}[];
 type life = number;
 
 const mockhints: hints = [
-  { userId: 1, hint: "Lx building", isShow: true },
-  { userId: 1, hint: "Lx building", isShow: false },
-  { userId: 1, hint: "Lx building", isShow: false },
-  { userId: 1, hint: "Lx building", isShow: false },
-  { userId: 1, hint: "Lx building", isShow: false },
+  { userId: 1, hint: "Lx building", isShow: true ,id:1 },
+  { userId: 1, hint: "Lx building", isShow: false, id:2 },
+  { userId: 1, hint: "Lx building", isShow: false, id:3 },
+  { userId: 1, hint: "Lx building", isShow: false, id:4 },
+  { userId: 1, hint: "Lx building", isShow: false, id:5 },
   // { userId: 1, hint: "ทดสอบ", isShow: true },
   // { userId: 1, hint: "ทดสอบ", isShow: true },
   // { userId: 2, hint: "ทดสอบ", isShow: true },
@@ -42,14 +42,26 @@ const Hints = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hints,setHints] = useState<hints>(mockhints);
   const [life,setLife] = useState<life>(5);
+  const [hintNum , setHintNum] = useState(1); 
   const onYes = () =>{
     setLife(life-3);
-    console.log(life);  
+    setHintNum(hintNum+1);
+    setHints(prevState => {
+      const newState = prevState.map(obj => {
+        if (obj.id === hintNum+1) {
+          return {...obj, isShow: true};
+        }
+        return obj;
+      });
+
+      return newState;
+    });
+    onClose(); 
   }
   return (
     <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "5" }}>
       {hints.map((hints, index) => {
-        return <HintCards key={index} hints={hints} id={index} />;
+        return <HintCards key={index} hints={hints}/>;
       })}
       <Button
         bg="#BDA2FF"
