@@ -12,6 +12,7 @@ import InputBox from '../components/Home/InputBox'
 const Home = () => {
   const [mission] = useState<string>("go to Lx Build")
   const { logout, user } = useContext(userContext)
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const boxStyle = {
     shadow: "lg",
@@ -43,7 +44,7 @@ const Home = () => {
           >
             <Box {...globalStyle} gap='10' >
               <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
-              <InputBox />
+              <InputBox code={searchParams.get('code')} />
             </Box>
           </MissionContainer>
         </VStack>
