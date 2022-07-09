@@ -1,7 +1,7 @@
 import { AlertIcon, Alert, Box, FormControl, Input, useToast, AlertTitle, AlertDescription, CloseButton, useDisclosure } from "@chakra-ui/react";
 import { useState, FC } from "react";
 
-const InputBox = () => {
+const InputBox: FC = (props) => {
 
   const [code, setCode] = useState('');
   // Is the code match with P'รหัส
