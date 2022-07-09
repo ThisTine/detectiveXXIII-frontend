@@ -1,31 +1,35 @@
 import { AlertIcon, Alert, Box, FormControl, Input, useToast, AlertTitle, AlertDescription, CloseButton, useDisclosure } from "@chakra-ui/react";
 import { useState, FC } from "react";
 
-const InputBox: FC<{qCode: string | null}> = ({qCode}) => {
+const InputBox: FC<{ qCode: string | null }> = ({ qCode }) => {
 
   const [code, setCode] = useState('');
-  // Is the code match with P'รหัส
-  const toastCorrect = useToast();
-  const toastWrong = useToast();
+  const toast = useToast();
+  const toastId = 'status-toast'
 
   function handleSubmit(e: any) {
     // checkWithDatabase() return true or false
     // let answer: boolean = checkWithDatabase(code);
     let answer: boolean = false;
-    answer ?
-      (toastCorrect({
-        position: 'top',
-        render: () => (
-          <AlertResult answer={true} />
-        ),
-      }))
-      :
-      (toastWrong({
-        position: 'top',
-        render: () => (
-          <AlertResult answer={false} />
-        ),
-      }))
+    if (!toast.isActive(toastId)) {
+      answer ?
+        (toast({
+          id: toastId,
+          position: 'top',
+          render: () => (
+            <AlertResult answer={true} />
+          ),
+        }))
+        :
+        (toast({
+          id: toastId,
+          position: 'top',
+          render: () => (
+            <AlertResult answer={false} />
+          ),
+        }))
+
+    }
     setCode('');
     e.preventDefault();
   }
@@ -49,7 +53,7 @@ const InputBox: FC<{qCode: string | null}> = ({qCode}) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-        <button type='submit'>submit ปลอมๆ</button>
+        <button type='submit' onSubmit={(e) => handleSubmit(e)} >submit ปลอมๆ</button>
       </FormControl>
     </Box>
   );
