@@ -1,7 +1,7 @@
 import { Box, Button, ButtonProps } from '@chakra-ui/react'
 import { FC } from 'react'
 
-const PrimaryButton: FC<ButtonProps> = (props) => {
+const SubmitButton: FC<ButtonProps> = (props) => {
   return (
     <Button
       bgColor={"rgba(163,123,255,0.86)"}
@@ -19,4 +19,4 @@ const PrimaryButton: FC<ButtonProps> = (props) => {
   )
 }
 
-export default PrimaryButton
+export default SubmitButton
