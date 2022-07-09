@@ -39,8 +39,9 @@ const Home = () => {
         <VStack width='100%'>
           <Heading color="#A680FF" mb="12">Guess your P'รหัส</Heading>
           <MissionContainer
-            Button={<SubmitButton >Submit</SubmitButton>}
+            Button={<SubmitButton type='submit' >Submit</SubmitButton>}
             MissionBox={<MissionBox boxStyle={boxStyle}>{mission}</MissionBox>}
+            htmlAs='form'
           >
             <Box {...globalStyle} gap='10' >
               <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
