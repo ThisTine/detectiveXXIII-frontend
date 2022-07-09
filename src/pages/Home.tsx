@@ -39,7 +39,7 @@ const Home = () => {
         <VStack width='100%'>
           <Heading color="#A680FF" mb="12">Guess your P'รหัส</Heading>
           <MissionContainer
-            Button={<PrimaryButton onClick={logout} >Submit</PrimaryButton>}
+            Button={<PrimaryButton >Submit</PrimaryButton>}
             MissionBox={<MissionBox boxStyle={boxStyle}>{mission}</MissionBox>}
           >
             <Box {...globalStyle} gap='10' >
