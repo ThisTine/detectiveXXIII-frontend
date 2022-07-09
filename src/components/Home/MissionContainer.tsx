@@ -4,11 +4,13 @@ import { FC, ReactNode } from 'react'
 const MissionContainer: FC<{
   children: ReactNode,
   Button?: ReactNode,
-  MissionBox?: ReactNode
+  MissionBox?: ReactNode,
+  htmlAs?: any
 }> = ({
   children,
   Button,
-  MissionBox
+  MissionBox,
+  htmlAs
 }) => {
     return (
       <Box
