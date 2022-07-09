@@ -1,4 +1,4 @@
-import { Box, Button, Container, VStack } from '@chakra-ui/react'
+import { Box, Container, VStack } from '@chakra-ui/react'
 import { FC, ReactNode } from 'react'
 
 const MissionContainer: FC<{ children: ReactNode, Button?: ReactNode, MissionBox?: ReactNode }> = ({ children, Button, MissionBox }) => {
