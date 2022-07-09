@@ -50,13 +50,13 @@ const InputBox: FC<{ qCode: string | null }> = ({ qCode }) => {
           bg='whiteAlpha.500'
           boxShadow='lg'
           borderRadius={60}
-          placeholder={qCode ? qCode : 'PUT CODE HERE'}
+          placeholder='PUT CODE HERE'
           textAlign={['center']}
           _placeholder={{
             color: '#AD89FF'
           }}
           textColor='#AD89FF'
-          value={code}
+          value={qCode? qCode : code}
           onChange={(e) => setCode(e.target.value)}
         />
         <button type='submit' onSubmit={(e) => handleSubmit(e)} >submit ปลอมๆ</button>
