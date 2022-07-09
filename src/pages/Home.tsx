@@ -44,7 +44,7 @@ const Home = () => {
           >
             <Box {...globalStyle} gap='10' >
               <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
-              <InputBox code={searchParams.get('code')} />
+              <InputBox qCode={searchParams.get('code')} />
             </Box>
           </MissionContainer>
         </VStack>
