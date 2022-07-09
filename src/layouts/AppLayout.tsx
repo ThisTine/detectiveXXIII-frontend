@@ -14,7 +14,7 @@ const AppLayout:FC<AppLayoutInterface> = (props) => {
   return (
     <Box width={"100%"} h="100vh" >
       {isNav && <NavBarDesktop isMobile={isMobile || false} />}
-        <Container w="100%" maxW={"container.md"} minH="100vh" display={"flex"} justifyContent="center" alignItems={"center"} {...props} />
+        <Container w="100%" maxW={"container.md"} minH="100vh" display={"flex"} justifyContent="center" alignItems={"center"} {...props} nav={null} />
       {(isNav && isMobile) && <NavBarMobile/>}
     </Box>
   )
