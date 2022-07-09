@@ -2,7 +2,7 @@ import HintCards from "../components/HintCards";
 import AppLayout from "../layouts/AppLayout";
 import { FaLock } from "react-icons/fa";
 import { useState } from "react";
-import { Button, Icon } from "@chakra-ui/react";
+import { Button, Icon, Text } from "@chakra-ui/react";
 import {
   Modal,
   ModalOverlay,
@@ -15,15 +15,15 @@ import {
 } from '@chakra-ui/react'
 
 type hints = { userId: 1 | 2; hint: string; isShow: boolean }[];
-type life = 0 | 1 | 2 | 3 | 4 | 5;
+type life = number;
 
 const mockhints: hints = [
   { userId: 1, hint: "Lx building", isShow: true },
-  { userId: 2, hint: "Lx building", isShow: false },
   { userId: 1, hint: "Lx building", isShow: false },
-  { userId: 2, hint: "Lx building", isShow: false },
   { userId: 1, hint: "Lx building", isShow: false },
-  // { userId: 2, hint: "ทดสอบ", isShow: true },
+  { userId: 1, hint: "Lx building", isShow: false },
+  { userId: 1, hint: "Lx building", isShow: false },
+  // { userId: 1, hint: "ทดสอบ", isShow: true },
   // { userId: 1, hint: "ทดสอบ", isShow: true },
   // { userId: 2, hint: "ทดสอบ", isShow: true },
   // { userId: 1, hint: "ทดสอบ", isShow: true },
@@ -40,11 +40,15 @@ const mockhints: hints = [
 
 const Hints = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [hints] = useState<hints>(mockhints);
-  const [life] = useState<life>(0);
+  const [hints,setHints] = useState<hints>(mockhints);
+  const [life,setLife] = useState<life>(5);
+  const onYes = () =>{
+    setLife(life-3);
+    console.log(life);  
+  }
   return (
     <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "5" }}>
-      {mockhints.map((hints, index) => {
+      {hints.map((hints, index) => {
         return <HintCards key={index} hints={hints} id={index} />;
       })}
       <Button
@@ -59,7 +63,7 @@ const Hints = () => {
         <Icon as={FaLock} w={6} h={6} />
       </Button>
       {/* ***modal part */}
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader >Open 1 more hints</ModalHeader>
@@ -73,7 +77,7 @@ const Hints = () => {
             <Button variant='ghost' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button  colorScheme='purple'>Yes</Button>
+            <Button  colorScheme='purple' onClick={onYes} disabled={!(life>=0)}>Yes</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
