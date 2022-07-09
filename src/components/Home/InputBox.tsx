@@ -1,4 +1,4 @@
-import { AlertIcon, Alert, Box, FormControl, Input, useToast, AlertTitle, AlertDescription, CloseButton, useDisclosure } from "@chakra-ui/react";
+import { Box, FormControl, Input, useToast } from "@chakra-ui/react";
 import { useState, FC } from "react";
 
 const InputBox: FC<{ qCode: string | null }> = ({ qCode }) => {
@@ -16,17 +16,23 @@ const InputBox: FC<{ qCode: string | null }> = ({ qCode }) => {
         (toast({
           id: toastId,
           position: 'top',
-          render: () => (
-            <AlertResult answer={true} />
-          ),
+          duration: 5000,
+          isClosable: true,
+          variant: "left-accent",
+          status: 'success',
+          title: 'Matched!',
+          description: 'You just matched with your P rahus',
         }))
         :
         (toast({
           id: toastId,
           position: 'top',
-          render: () => (
-            <AlertResult answer={false} />
-          ),
+          duration: 5000,
+          isClosable: true,
+          variant: "left-accent",
+          status: 'error',
+          title: 'Wrong code!',
+          description: 'Please try again',
         }))
 
     }
@@ -56,35 +62,6 @@ const InputBox: FC<{ qCode: string | null }> = ({ qCode }) => {
         <button type='submit' onSubmit={(e) => handleSubmit(e)} >submit ปลอมๆ</button>
       </FormControl>
     </Box>
-  );
-}
-
-const AlertResult: FC<{ answer: boolean }> = ({ answer }) => {
-  const {
-    isOpen: isVisible,
-    onClose,
-    onOpen,
-  } = useDisclosure({ defaultIsOpen: true })
-
-  return (
-    <Alert
-      status={answer ? "success" : "error"}
-      variant='left-accent'
-      rounded='md'
-    >
-      <AlertIcon />
-      <Box>
-        <AlertTitle>{answer ? "You matched!" : "Wrong!"}</AlertTitle>
-        <AlertDescription>{answer ? "You matched with your P rahus." : "Your code is not correct."}</AlertDescription>
-      </Box>
-      <CloseButton
-        alignSelf='flex-start'
-        position='relative'
-        right={-10}
-        top={-1}
-        onClick={onClose}
-      />
-    </Alert >
   );
 }
 
