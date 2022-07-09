@@ -5,14 +5,14 @@ const InputBox = () => {
 
   const [code, setCode] = useState('');
   // Is the code match with P'รหัส
-  const [isCorrect, setAnswer] = useState(false);
   const toastCorrect = useToast();
   const toastWrong = useToast();
 
   function handleSubmit(e: any) {
-    // checkWithDatabase() return true or false and setAnswer()
-    setAnswer(true);
-    isCorrect ?
+    // checkWithDatabase() return true or false
+    // let answer: boolean = checkWithDatabase(code);
+    let answer: boolean = false;
+    answer ?
       (toastCorrect({
         position: 'top',
         render: () => (
