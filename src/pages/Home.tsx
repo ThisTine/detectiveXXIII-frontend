@@ -1,26 +1,52 @@
-import { Box, Avatar, Button, Heading } from '@chakra-ui/react'
+import { Flex, VStack, Box, Avatar, Button, Heading, FlexProps } from '@chakra-ui/react'
 import { useContext, useState } from 'react'
-import BoxContainer from '../components/BoxContainer'
+import MissionContainer from '../components/Home/MissionContainer'
 import userContext from '../context/userContext'
 import AppLayout from '../layouts/AppLayout'
 import getImageUrl from '../functions/getImageUrl'
 import PrimaryButton from '../components/PrimaryButton'
-import MissionBox from '../components/MissionBox'
+import MissionBox from '../components/Home/MissionBox'
+import InputBox from '../components/Home/InputBox'
 
 const Home = () => {
   const [mission] = useState<string>("go to Lx Build")
   const { logout, user } = useContext(userContext)
+
+  const boxStyle = {
+    shadow: "lg",
+    bg: "#FFFFFF",
+    w: "100%",
+    rounded: "3xl",
+    display: "flex",
+    justifyContent: "center",
+    p: 3,
+    maxW: 'lg'
+  }
+
+  const globalStyle: FlexProps = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    flexDirection: 'column',
+  }
+
   return (
     <AppLayout nav >
-      <BoxContainer
-        Button={<PrimaryButton onClick={logout} >Logout</PrimaryButton>}
-        MissionBox={<MissionBox>Mission</MissionBox>}
-      >
-        <Box display='flex' flexDirection='column' alignItems='center' >
-          <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
-          <Heading>Home</Heading>
-        </Box>
-      </BoxContainer>
+      <Flex {...globalStyle} >
+        <VStack width='100%'>
+          <Heading color="#A680FF" mb="12">Guess your P'รหัส</Heading>
+          <MissionContainer
+            Button={<PrimaryButton onClick={logout} >Submit</PrimaryButton>}
+            MissionBox={<MissionBox boxStyle={boxStyle}>{mission}</MissionBox>}
+          >
+            <Box {...globalStyle} gap='10' >
+              <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
+              <InputBox />
+            </Box>
+          </MissionContainer>
+        </VStack>
+      </Flex>
     </AppLayout>
   )
 }
