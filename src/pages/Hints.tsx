@@ -70,8 +70,6 @@ const Hints = () => {
 
       return newState;
     });
-    console.log(user2);
-    
     onClose();
   };
   //render hint each page
