@@ -12,7 +12,7 @@ const AppLayout:FC<AppLayoutInterface> = (props) => {
   const isMobile = useBreakpointValue({base:true,md:false})
   const [isNav] = useState<boolean>(props.nav || false)
   return (
-    <Box width={"100%"} h="100vh" >
+    <Box width={"100%"} minH="100vh" >
       {isNav && <NavBarDesktop isMobile={isMobile || false} />}
         <Container w="100%" maxW={"container.md"} minH="100vh" display={"flex"} justifyContent="center" alignItems={"center"} {...props} nav={null} />
       {(isNav && isMobile) && <NavBarMobile/>}
