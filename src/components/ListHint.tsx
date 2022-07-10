@@ -11,8 +11,9 @@ import {
 import React from "react";
 import { BsCircleFill } from "react-icons/bs";
 import AppLayout from "../layouts/AppLayout";
+import PrimaryButton from "./PrimaryButton";
 
-function HintCard(text: string, index: number) {
+function HintCard({ text, index }: { text: string; index: number }) {
   return (
     <Box
       maxW="container.md"
@@ -44,6 +45,9 @@ function HintCard(text: string, index: number) {
 }
 
 function ListHint({ hints }: { hints: string[] }) {
+  const SubmitHints = () => {
+    console.log(hints);
+  };
   return (
     <AppLayout nav flexDirection={"column"} maxW="lg">
       <Stack justifyContent="center" width="100%" py={20}>
@@ -59,7 +63,10 @@ function ListHint({ hints }: { hints: string[] }) {
             LIST OF HINTS
           </Text>
           <VStack gap={3}>
-            {hints.map((text, index) => HintCard(text, index))}
+            {hints.map((text, index) => (
+              <HintCard key={index} {...{ text, index }} />
+            ))}
+            <PrimaryButton onClick={SubmitHints}>Submit</PrimaryButton>
           </VStack>
         </Box>
       </Stack>
