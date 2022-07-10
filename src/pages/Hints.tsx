@@ -111,7 +111,7 @@ const Hints = () => {
       >
         <Icon as={FaUnlock} w={5} h={5} />
       </Button>
-      {/* ***modal part */}
+      {/* modal part */}
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
