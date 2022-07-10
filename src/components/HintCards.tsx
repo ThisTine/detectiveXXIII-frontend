@@ -8,7 +8,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { FaLock, FaCheck } from "react-icons/fa";
-function HintCards({ hints }: any) {
+interface HintCardsProps {
+  hints: { userId: 1 | 2; hint: string; isShow: boolean; id: number };
+}
+function HintCards({ hints }:HintCardsProps) {
   return (
     <Box
       minW="300px"

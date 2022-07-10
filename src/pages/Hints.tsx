@@ -2,7 +2,7 @@ import HintCards from "../components/HintCards";
 import AppLayout from "../layouts/AppLayout";
 import { FaUnlock } from "react-icons/fa";
 import { useState } from "react";
-import { Button, Heading, Icon, Flex } from "@chakra-ui/react";
+import { Button, Heading, Icon, Flex, Box } from "@chakra-ui/react";
 import {
   Modal,
   ModalOverlay,
@@ -40,23 +40,36 @@ const Hints = () => {
   //array user 1  filter
   const user1 = hints.filter((obj) => obj.userId === 1);
   const user2 = hints.filter((obj) => obj.userId === 2);
-  const renderButton = () =>{
-    if(user2.length!=0){
+  const renderButton = () => {
+    if (user2.length != 0) {
       return (
         <Flex>
-        <Button marginRight="2" bg="white" _hover={{ bg: "#C6F6D5" }} width="50px" height="30px" onClick={()=>setCurrent(1)}>
-          1
-        </Button>
-        <Button marginRight="2" bg="white" _hover={{ bg: "#C6F6D5" }}  width="50px" height="30px" onClick={()=>setCurrent(2)}>
-          2
-        </Button>
-      </Flex>
+          <Button
+            marginRight="2"
+            bg="white"
+            _hover={{ bg: "#C6F6D5" }}
+            width="50px"
+            height="30px"
+            onClick={() => setCurrent(1)}
+          >
+            1
+          </Button>
+          <Button
+            marginRight="2"
+            bg="white"
+            _hover={{ bg: "#C6F6D5" }}
+            width="50px"
+            height="30px"
+            onClick={() => setCurrent(2)}
+          >
+            2
+          </Button>
+        </Flex>
       );
-    }
-    else{
+    } else {
       return <Flex />;
     }
-  }
+  };
   const onYes = () => {
     setLife(life - 3);
     setHintNum(hintNum + 1);
@@ -73,33 +86,24 @@ const Hints = () => {
     onClose();
   };
   //render hint each page
-  const renderUser = () =>{
-    if(current === 1){
-      return(
-        user1.map((hint, index) => {
-          return <HintCards key={index} hints={hint} />;
-        })
-      );
+  const renderUser = () => {
+    if (current === 1) {
+      return user1.map((hint, index) => {
+        return <HintCards key={index} hints={hint} />;
+      });
+    } else {
+      return user2.map((hint, index) => {
+        return <HintCards key={index} hints={hint} />;
+      });
     }
-    else{
-      return(
-        user2.map((hint, index) => {
-          return <HintCards key={index} hints={hint} />;
-        })
-      );
-    }
-  }
+  };
   return (
     <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
       <Heading color="#BDA2FF" fontWeight="light">
         LIST OF HINTS
       </Heading>
-      {
-        renderButton()
-      }
-      {
-        renderUser()
-      }
+      {renderButton()}
+      {renderUser()}
       <Button
         bg="#BDA2FF"
         width="80px"
@@ -111,6 +115,7 @@ const Hints = () => {
       >
         <Icon as={FaUnlock} w={5} h={5} />
       </Button>
+      <Box width="100%" height="30px"></Box>
       {/* modal part */}
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
