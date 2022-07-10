@@ -1,7 +1,8 @@
-import { Text, Heading, VStack, Box } from '@chakra-ui/react';
+import { Text, Heading, VStack, Box, BoxProps } from '@chakra-ui/react';
 import { FC, ReactNode } from 'react'
 
-const MissionBox: FC<{ children: ReactNode, boxStyle: any }> = ({ children, boxStyle }) => {
+
+const MissionBox: FC<{ children: ReactNode, boxStyle: BoxProps }> = ({ children, boxStyle }) => {
 
   return (
     <Box
