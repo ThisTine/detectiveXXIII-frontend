@@ -4,6 +4,7 @@ import {
   Center,
   FormControl,
   FormErrorMessage,
+  HStack,
   Input,
   Text,
   useToast,
@@ -28,6 +29,7 @@ const Setup = () => {
       <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
         1 of 10
       </Text>
+
       <BoxContainer
         Button={
           <PrimaryButton
@@ -42,7 +44,10 @@ const Setup = () => {
               })
             }
           >
-            NEXT <AiOutlineArrowRight />
+            <HStack>
+              <Text>NEXT </Text>
+              <AiOutlineArrowRight />
+            </HStack>
           </PrimaryButton>
         }
       >
