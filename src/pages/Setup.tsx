@@ -13,6 +13,7 @@ import BoxContainer from "../components/BoxContainer";
 import PrimaryButton from "../components/PrimaryButton";
 import AppLayout from "../layouts/AppLayout";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import ListHint from "../components/ListHint";
 type hints = string[];
 
 const Setup = () => {
@@ -36,7 +37,8 @@ const Setup = () => {
         description: checkError(),
       });
     } else {
-      console.log(hints);
+      sethints([...hints, input]);
+      setInput("");
     }
   };
   const checkError = () => {
@@ -51,63 +53,67 @@ const Setup = () => {
     }
   };
   const toast = useToast();
-  return (
-    <AppLayout nav flexDirection={"column"} maxW="md">
-      <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
-        1 of 10
-      </Text>
+  if (hints.length < 10) {
+    return (
+      <AppLayout nav flexDirection={"column"} maxW="md">
+        <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
+          {hints.length + 1} of 10
+        </Text>
 
-      <BoxContainer
-        Button={
-          <PrimaryButton onClick={submit}>
-            <HStack>
-              <Text>NEXT </Text>
-              <AiOutlineArrowRight />
-            </HStack>
-          </PrimaryButton>
-        }
-      >
-        <Box minH="200">
-          <Text textAlign="center" color="#A680FF" fontSize="3xl">
-            ADD HINT
-          </Text>
-          <Center h={150} textAlign="center">
-            <FormControl isInvalid={isErrorByL || isErrorByrepeat}>
-              <Input
-                borderColor="#A680FF"
-                focusBorderColor="#A680FF"
-                backgroundColor="rgba(255,255,255,0.4)"
-                shadow={20}
-                rounded="full"
-                boxShadow="lg"
-                htmlSize={22}
-                width="auto"
-                placeholder="PUT YOUR HINT HERE"
-                textAlign="center"
-                _placeholder={{ color: "#A680FF" }}
-                size="lg"
-                id="hint"
-                value={input}
-                onChange={InputChange}
-                isInvalid={isErrorByL || isErrorByrepeat}
-              />
+        <BoxContainer
+          Button={
+            <PrimaryButton onClick={submit} isDisabled={!!checkError()}>
+              <HStack>
+                <Text>{hints.length === 9 ? "Review" : "NEXT"} </Text>
+                <AiOutlineArrowRight />
+              </HStack>
+            </PrimaryButton>
+          }
+        >
+          <Box minH="200">
+            <Text textAlign="center" color="#A680FF" fontSize="3xl">
+              ADD HINT
+            </Text>
+            <Center h={150} textAlign="center">
+              <FormControl isInvalid={isErrorByL || isErrorByrepeat}>
+                <Input
+                  borderColor="#A680FF"
+                  focusBorderColor="#A680FF"
+                  backgroundColor="rgba(255,255,255,0.4)"
+                  shadow={20}
+                  rounded="full"
+                  boxShadow="lg"
+                  htmlSize={22}
+                  width="auto"
+                  placeholder="PUT YOUR HINT HERE"
+                  textAlign="center"
+                  _placeholder={{ color: "#A680FF" }}
+                  size="lg"
+                  id="hint"
+                  value={input}
+                  onChange={InputChange}
+                  isInvalid={isErrorByL || isErrorByrepeat}
+                />
 
-              <FormErrorMessage
-                color="#FF0000"
-                fontWeight="600"
-                fontSize="16"
-                width="100%"
-              >
-                <Text textAlign="center" width="100%">
-                  {checkError()}
-                </Text>
-              </FormErrorMessage>
-            </FormControl>
-          </Center>
-        </Box>
-      </BoxContainer>
-    </AppLayout>
-  );
+                <FormErrorMessage
+                  color="#FF0000"
+                  fontWeight="600"
+                  fontSize="16"
+                  width="100%"
+                >
+                  <Text textAlign="center" width="100%">
+                    {checkError()}
+                  </Text>
+                </FormErrorMessage>
+              </FormControl>
+            </Center>
+          </Box>
+        </BoxContainer>
+      </AppLayout>
+    );
+  } else {
+    return <ListHint hints={hints} />;
+  }
 };
 
 export default Setup;
