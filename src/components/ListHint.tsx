@@ -4,17 +4,13 @@ import {
   Flex,
   Heading,
   HStack,
-  ListItem,
   Stack,
   Text,
-  UnorderedList,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import { BsCircleFill } from "react-icons/bs";
 import AppLayout from "../layouts/AppLayout";
-import BoxContainer from "./BoxContainer";
-import PrimaryButton from "./PrimaryButton";
 
 function HintCard(text: string, index: number) {
   return (
