@@ -8,9 +8,9 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { FaLock, FaCheck } from "react-icons/fa";
-function HintCards({hints }:any) {
-    return(
-      <Box
+function HintCards({ hints }: any) {
+  return (
+    <Box
       minW="300px"
       width={{ base: "50%", sm: "80%" }}
       boxShadow="md"
@@ -36,15 +36,25 @@ function HintCards({hints }:any) {
               HINT {hints.id}
             </Heading>
             <UnorderedList>
-              <ListItem color="#4f4f4f">{hints.hint}</ListItem>
+              <ListItem
+                color="#4f4f4f"
+                filter="auto"
+                blur={hints.isShow ? "0px" : "5px"}
+              >
+                {hints.hint}
+              </ListItem>
             </UnorderedList>
           </Flex>
         </Flex>
-        <Badge ml="1" colorScheme={hints.isShow ? "green" : "red"} variant="outline">
+        <Badge
+          ml="1"
+          colorScheme={hints.isShow ? "green" : "red"}
+          variant="outline"
+        >
           {hints.isShow ? "Unlocked" : "Locked"}
         </Badge>
       </Flex>
     </Box>
-    );
-  }
+  );
+}
 export default HintCards;
