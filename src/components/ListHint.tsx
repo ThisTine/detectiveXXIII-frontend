@@ -13,7 +13,9 @@ import { BsCircleFill } from "react-icons/bs";
 import AppLayout from "../layouts/AppLayout";
 import PrimaryButton from "./PrimaryButton";
 
-const EditHint = () => {};
+const EditHint = () => {
+  console.log("EditHint");
+};
 function HintCard({ text, index }: { text: string; index: number }) {
   return (
     <Box
@@ -23,6 +25,7 @@ function HintCard({ text, index }: { text: string; index: number }) {
       p="4"
       rounded="3xl"
       bg="white"
+      onClick={EditHint}
     >
       <Flex alignItems="center" justifyContent="space-between" gap="2">
         <Flex gap="5" alignItems="center">
