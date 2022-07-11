@@ -13,6 +13,7 @@ import { BsCircleFill } from "react-icons/bs";
 import AppLayout from "../layouts/AppLayout";
 import PrimaryButton from "./PrimaryButton";
 
+const EditHint = () => {};
 function HintCard({ text, index }: { text: string; index: number }) {
   return (
     <Box
@@ -38,7 +39,6 @@ function HintCard({ text, index }: { text: string; index: number }) {
             </HStack>
           </VStack>
         </Flex>
-        <Badge ml="1" colorScheme="green" variant="outline"></Badge>
       </Flex>
     </Box>
   );
