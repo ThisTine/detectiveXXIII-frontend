@@ -52,7 +52,7 @@ const Waiting = () => {
                 </Text>
               </Box>
               <Box >
-                <FormControl as='form' onSubmit={(e) => Submit(e)} borderColor={"#A37BFF"} >
+                <FormControl as='form' borderColor={"#A37BFF"} >
                   <Input
                     id='CODE'
                     width='auto'
