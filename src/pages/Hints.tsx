@@ -46,8 +46,7 @@ const Hints = () => {
         <Flex>
           <Button
             marginRight="2"
-            bg="white"
-            _hover={{ bg: "#C6F6D5" }}
+            bg={current === 1 ? "purple.200" : "white"}
             width="50px"
             height="30px"
             onClick={() => setCurrent(1)}
@@ -56,8 +55,7 @@ const Hints = () => {
           </Button>
           <Button
             marginRight="2"
-            bg="white"
-            _hover={{ bg: "#C6F6D5" }}
+            bg={current === 2 ? "purple.200" : "white"}
             width="50px"
             height="30px"
             onClick={() => setCurrent(2)}
