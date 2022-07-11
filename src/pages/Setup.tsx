@@ -27,6 +27,10 @@ const Setup = () => {
   const isErrorByEmpty = input.length === 0;
 
   const submit = () => {
+    sethints([...hints, input]);
+    setInput("");
+  };
+  const toastError = () => {
     if (checkError()) {
       toast({
         position: "top",
@@ -34,11 +38,9 @@ const Setup = () => {
         status: "error",
         variant: "left-accent",
         isClosable: true,
+        duration: 3000,
         description: checkError(),
       });
-    } else {
-      sethints([...hints, input]);
-      setInput("");
     }
   };
   const checkError = () => {
@@ -62,7 +64,11 @@ const Setup = () => {
 
         <BoxContainer
           Button={
-            <PrimaryButton onClick={submit} isDisabled={!!checkError()}>
+            <PrimaryButton
+              onClick={submit}
+              onMouseOver={toastError}
+              isDisabled={!!checkError()}
+            >
               <HStack>
                 <Text>{hints.length === 9 ? "Review" : "NEXT"} </Text>
                 <AiOutlineArrowRight />
