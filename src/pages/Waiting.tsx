@@ -22,7 +22,7 @@ const Waiting = () => {
 
   function Submit(e: any) {
     alert(`Your Code: ${code}`)
-    e.prepentDefault()
+    e.preventDefault()
 
   }
   const Error = (text: string) => {
