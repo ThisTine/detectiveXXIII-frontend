@@ -18,7 +18,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { BsCircleFill } from "react-icons/bs";
 import AppLayout from "../layouts/AppLayout";
-import Setup, { checkError, hints } from "../pages/Setup";
+import { checkError, hints } from "../pages/Setup";
 import BoxContainer from "./BoxContainer";
 import PrimaryButton from "./PrimaryButton";
 
@@ -40,6 +40,8 @@ function HintCard({
       rounded="3xl"
       bg="white"
       cursor="pointer"
+      transition={"all 0.2s ease-in-out"}
+      _hover={{ bg: "pink.50", transform: "scale(1.05)" }}
       onClick={() => {
         onEdit(index);
       }}
