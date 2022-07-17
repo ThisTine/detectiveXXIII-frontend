@@ -2,24 +2,22 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import BoxContainer from "../components/BoxContainer";
 import AppLayout from "../layouts/AppLayout";
 import { Text, Box, Center, Flex, Image } from "@chakra-ui/react";
+import dayjs from "dayjs";
 
 type code = {
   code: string;
-  end: Date;
+  end: dayjs.Dayjs;
 };
 
 const Code = () => {
   const [code, setCode] = useState<code>({
     code: "X23AD",
-    end: new Date(new Date().getTime() + 1 * 60000),
+    end: dayjs().add(1, "m"),
   });
 
-  const countdownDate = code.end.getTime();
   const countdown = () => {
-    const now = new Date().getTime();
-    const timeLeft = countdownDate - now;
-    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    return seconds;
+    const now = dayjs();
+    return code.end.diff(now, "s");
   };
   const [time, setTime] = useState(countdown());
 
@@ -29,13 +27,15 @@ const Code = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (countdown() <= 0) {
+      const now = dayjs();
+      const timeLeft = countdown();
+      if (now.isAfter(code.end)) {
         setCode({
           code: "X23AD",
-          end: new Date(new Date().getTime() + 1 * 60000),
+          end: dayjs().add(1, "m"),
         });
       } else {
-        setTime(countdown());
+        setTime(timeLeft);
       }
     }, 1000);
     return () => clearInterval(timer);
