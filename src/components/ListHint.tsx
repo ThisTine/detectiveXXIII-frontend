@@ -11,7 +11,6 @@ import {
   Stack,
   Text,
   VStack,
-  useToast,
   CloseButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -21,7 +20,11 @@ import AppLayout from "../layouts/AppLayout";
 import { checkError, hints } from "../pages/Setup";
 import BoxContainer from "./BoxContainer";
 import PrimaryButton from "./PrimaryButton";
-
+import { useAppToast } from "../hooks/toast";
+const toast = useAppToast();
+const onClick = () => {
+  toast.error("Error !!!");
+};
 function HintCard({
   text,
   index,
@@ -81,19 +84,10 @@ function ListHint({
   const SubmitHints = () => {
     console.log(hints);
   };
-  const toast = useToast();
+
   const toastError = () => {
     if (checkError(input, hints)) {
-      toast.closeAll();
-      toast({
-        position: "top",
-        title: "Fail",
-        status: "error",
-        variant: "left-accent",
-        isClosable: true,
-        duration: 3000,
-        description: checkError(input, hints),
-      });
+      toast.error("Fail", { description: checkError(input, hints) });
     }
   };
   useEffect(() => {
