@@ -3,29 +3,33 @@ import { createContext, useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useAxios from "../hooks/useAxios"
 import Loading from "../pages/Loading"
+import api from "../hooks/useAxios"
+import { User } from "../hooks/useAxiosType"
 
 type userType =  { id: String, username: String, email: String, hints: [], isPlayable: boolean, img: {type:"Buffer",data:number[]}, ingame:{partnercount: number, partnerinfo?:{username: String, image: String}[] } }
 
 const userContext = createContext<{user:userType|null,logout:()=>void}>({user:null,logout:()=>{}})
 
 export const UserContextProvider = (props:any)=>{
-  const axios = useAxios()
+  // const axios = useAxios()
   const [isLoading,{off}] = useBoolean(true)
-  const [user,setUser] = useState<userType| null>(null)
+  const [user,setUser] = useState<User| null>(null)
   const navigate = useNavigate()
   const toast = useToast({status:"error"})
   const init = useCallback(async()=>{
     try{
-     const {data} = await axios.get("/user/init")
+     const {data} = await api.getUser()
+     console.log(data)
+     if(data)
      setUser({...data})
     }catch(err){
       // navigate("/login",{replace:true})
     }
-  },[])
+  },[api,setUser])
 
   const logout = useCallback(async()=>{
     try{
-      await axios.get("/auth/logout")
+      await api.logout()
       window.location.reload()
     }catch(err){
       toast({title:"Error"})

@@ -12,8 +12,8 @@ const Home = () => {
   const [mission] = useState<string>("go to Lx Build")
   const {logout,user} = useContext(userContext)
   return (
-    <AppLayout nav >
-      <BoxContainer Button={<PrimaryButton onClick={logout} >Logout</PrimaryButton>} >
+    <AppLayout nav={true} >
+      <BoxContainer Button={<PrimaryButton onClick={logout} isDisabled={true} >Logout</PrimaryButton>} >
       <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
       <Heading>Home</Heading>
       
