@@ -77,10 +77,9 @@ const Home = () => {
           <MissionContainer
             Button={<PrimaryButton type='submit' onSubmit={(e) => handleSubmit(e)} >Submit</PrimaryButton>}
             MissionBox={<MissionBox boxStyle={boxStyle}>{mission}</MissionBox>}
-            htmlAs='form'
           >
             <Box {...globalStyle} gap='10' >
-              <Avatar size={"2xl"} src={getImageUrl(user?.img.data)} />
+              <Avatar size={"2xl"} src={getImageUrl(user?.img?.data)} />
               <Box>
                 <FormControl as='form' onSubmit={(e) => handleSubmit(e)} borderColor={"#A37BFF"} >
                   <Input
@@ -96,7 +95,7 @@ const Home = () => {
                       color: '#AD89FF'
                     }}
                     textColor='#AD89FF'
-                    value={searchParams.get('code') as string}
+                    defaultValue={searchParams.get('code') || ""}
                     onChange={(e:ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
                   />
                 </FormControl>

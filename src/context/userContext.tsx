@@ -18,10 +18,9 @@ export const UserContextProvider = (props:any)=>{
   const toast = useToast({status:"error"})
   const init = useCallback(async()=>{
     try{
-     const {data} = await api.getUser()
-     console.log(data)
-     if(data)
-     setUser({...data})
+     const data = await api.getUser()
+     if(data.data)
+     setUser({...data.data})
     }catch(err){
       // navigate("/login",{replace:true})
     }
