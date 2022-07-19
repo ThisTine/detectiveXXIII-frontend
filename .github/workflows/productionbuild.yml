@@ -9,6 +9,7 @@ jobs:
   build: 
     name: 🐳 build and push docker image
     runs-on: ubuntu-latest
+    environment: production
     timeout-minutes: 5
     steps:
       - name: 😊 checkout
@@ -34,12 +35,12 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE_PRODUCTION}}:latest
-          build-args: VITE_MODE=${{secrets.ENV_VITE_MODE}} VITE_BASEURL=${{secrets.ENV_VITE_BASEURL}}
+          tags: ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}:latest
   
   deploy:
     name: deploy to server
     runs-on: ubuntu-latest
+    environment: production
     timeout-minutes: 5
     needs: [build]
     steps:
@@ -50,9 +51,9 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_PASSWORD }}
             script: |
-              echo '${{secrets.CONTAINER_LABEL_PROD}}' > ${{secrets.LABEL_PROD_PATH}}
-              docker pull ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE_PRODUCTION}}:latest
+              echo '${{secrets.CONTAINER_LABEL}}' > ${{secrets.LABEL_PATH}}
+              docker pull ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}:latest
               docker stop ${{secrets.CONTAINER_NAME}}
               docker rm ${{secrets.CONTAINER_NAME}}
-              docker run -d --name ${{secrets.CONTAINER_NAME}} --label-file ${{secrets.LABEL_PROD_PATH}} --network proxy ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE_PRODUCTION}}
+              docker run -d --name ${{secrets.CONTAINER_NAME}} --label-file ${{secrets.LABEL_PATH}} --network proxy ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}
               docker system prune -af
