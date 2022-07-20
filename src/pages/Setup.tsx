@@ -53,7 +53,7 @@ const Setup = () => {
   };
   const isErrorByL = input.length > 10;
   const isErrorByrepeat = hints.includes(input);
-  const toast = useAppToast();
+  const toast = useAppToast({ position: "top" });
   const toastError = () => {
     if (checkError(input, hints)) {
       toast.error("Fail", { description: checkError(input, hints) });

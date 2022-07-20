@@ -12,6 +12,7 @@ import {
   Text,
   VStack,
   CloseButton,
+  position,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -85,7 +86,9 @@ function ListHint({
 
   const toastError = () => {
     if (checkError(input, hints)) {
-      toast.error("Fail", { description: checkError(input, hints) });
+      toast.error("Fail", {
+        description: checkError(input, hints),
+      });
     }
   };
   useEffect(() => {
