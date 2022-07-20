@@ -21,10 +21,7 @@ import { checkError, hints } from "../pages/Setup";
 import BoxContainer from "./BoxContainer";
 import PrimaryButton from "./PrimaryButton";
 import { useAppToast } from "../hooks/toast";
-const toast = useAppToast();
-const onClick = () => {
-  toast.error("Error !!!");
-};
+
 function HintCard({
   text,
   index,
@@ -78,6 +75,7 @@ function ListHint({
 }) {
   const [indexHint, setIndexHint] = useState(-1);
   const [input, setInput] = useState("");
+  const toast = useAppToast();
   const onEdit = (index: number) => {
     setIndexHint(index);
   };

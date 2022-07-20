@@ -7,7 +7,6 @@ import {
   HStack,
   Input,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import BoxContainer from "../components/BoxContainer";
 import PrimaryButton from "../components/PrimaryButton";
@@ -15,13 +14,14 @@ import AppLayout from "../layouts/AppLayout";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import ListHint from "../components/ListHint";
 export type hints = string[];
+import { useAppToast } from "../hooks/toast";
 
 export const checkError = (input: string, hints: string[]) => {
   const isErrorByL = input.length > 10;
   const isErrorByrepeat = hints.includes(input);
   const isErrorByEmpty = input.length === 0;
   if (isErrorByL) {
-    return "WE ONELY ALLOW 10 LETTERS FOR HINTS !";
+    return "WE ONLY ALLOW 10 LETTERS FOR HINTS !";
   } else if (isErrorByrepeat) {
     return "Your hint is already in the list.";
   } else if (isErrorByEmpty) {
@@ -53,22 +53,13 @@ const Setup = () => {
   };
   const isErrorByL = input.length > 10;
   const isErrorByrepeat = hints.includes(input);
+  const toast = useAppToast();
   const toastError = () => {
     if (checkError(input, hints)) {
-      toast.closeAll();
-      toast({
-        position: "top",
-        title: "Fail",
-        status: "error",
-        variant: "left-accent",
-        isClosable: true,
-        duration: 3000,
-        description: checkError(input, hints),
-      });
+      toast.error("Fail", { description: checkError(input, hints) });
     }
   };
 
-  const toast = useToast();
   if (hints.length < 10) {
     return (
       <AppLayout nav flexDirection={"column"} maxW="md">
