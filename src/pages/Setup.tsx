@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import {
   Box,
   Center,
+  CloseButton,
+  Flex,
   FormControl,
   FormErrorMessage,
   HStack,
@@ -15,6 +17,10 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import ListHint from "../components/ListHint";
 export type hints = string[];
 import { useAppToast } from "../hooks/toast";
+
+export const setupContext = createContext({
+  onEdit: (index: number) => {},
+});
 
 export const checkError = (input: string, hints: string[]) => {
   const isErrorByL = input.length > 10;
@@ -47,36 +53,58 @@ const Setup = () => {
     target: { value: React.SetStateAction<string> };
   }) => setInput(e.target.value);
 
+  const [indexHint, setIndexHint] = useState(-1);
+  const EditHint = () => {
+    sethints(hints.map((hint, index) => (index === indexHint ? input : hint)));
+    setInput("");
+    setIndexHint(-1);
+  };
+  const onEdit = (index: number) => {
+    setIndexHint(index);
+    setInput(hints[index]);
+  };
   const submit = () => {
     sethints([...hints, input]);
     setInput("");
   };
+  const toast = useAppToast({ position: "top" });
   const isErrorByL = input.length > 10;
   const isErrorByrepeat = hints.includes(input);
-  const toast = useAppToast({ position: "top" });
   const toastError = () => {
     if (checkError(input, hints)) {
       toast.error("Fail", { description: checkError(input, hints) });
     }
   };
 
-  if (hints.length < 10) {
+  if (hints.length < 10 || indexHint > -1) {
     return (
       <AppLayout nav flexDirection={"column"} maxW="md">
-        <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
-          {hints.length + 1} of 10
-        </Text>
+        {indexHint > -1 ? (
+          <Flex justifyContent="flex-end" position="relative" width="100%">
+            <CloseButton onClick={() => setIndexHint(-1)} />
+          </Flex>
+        ) : (
+          <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
+            {hints.length + 1} of 10
+          </Text>
+        )}
 
         <BoxContainer
           Button={
             <PrimaryButton
-              onClick={submit}
+              onClick={indexHint > -1 ? EditHint : submit}
               onMouseOver={toastError}
               isDisabled={!!checkError(input, hints)}
               cursor="pointer"
             >
               <HStack>
-                <Text>{hints.length === 9 ? "Review" : "NEXT"} </Text>
+                <Text>
+                  {indexHint > -1
+                    ? "SUBMIT"
+                    : hints.length === 9
+                    ? "Review"
+                    : "NEXT"}{" "}
+                </Text>
                 <AiOutlineArrowRight />
               </HStack>
             </PrimaryButton>
@@ -84,7 +112,7 @@ const Setup = () => {
         >
           <Box minH="200">
             <Text textAlign="center" color="#A680FF" fontSize="3xl">
-              ADD HINT
+              {indexHint > -1 ? "EDIT" : "ADD HINT"}
             </Text>
             <Center h={150} textAlign="center">
               <FormControl isInvalid={isErrorByL || isErrorByrepeat}>
@@ -124,7 +152,11 @@ const Setup = () => {
       </AppLayout>
     );
   } else {
-    return <ListHint hints={hints} setHints={sethints} />;
+    return (
+      <setupContext.Provider value={{ onEdit }}>
+        <ListHint hints={hints} />
+      </setupContext.Provider>
+    );
   }
 };
 
