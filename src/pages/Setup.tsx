@@ -93,7 +93,6 @@ const Setup = () => {
           Button={
             <PrimaryButton
               onClick={indexHint > -1 ? EditHint : submit}
-              onMouseOver={toastError}
               isDisabled={!!checkError(input, hints)}
               cursor="pointer"
             >
@@ -103,7 +102,7 @@ const Setup = () => {
                     ? "SUBMIT"
                     : hints.length === 9
                     ? "Review"
-                    : "NEXT"}{" "}
+                    : "NEXT"}
                 </Text>
                 <AiOutlineArrowRight />
               </HStack>
