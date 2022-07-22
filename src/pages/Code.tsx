@@ -64,7 +64,7 @@ const Code = () => {
               </Box>
               <Center>
                 <Image
-                  src={`https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=${code.code}&chld=H|1`}
+                  src={`https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=${import.meta.env.VITE_WEBURL}?code=${code.code}&chld=H|1`}
                   borderRadius={30}
                   backgroundColor="rgba(255, 255, 255, 0.86)"
                   boxShadow="0px 4px 11px rgba(0, 0, 0, 0.25)"
