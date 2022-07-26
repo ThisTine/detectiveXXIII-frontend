@@ -13,8 +13,8 @@ const api: functionType = {
     getPartners: () => axiosInstance.get<Partner>("/user/partners" as parths),
     getUser: () => axiosInstance.get<User>("/user" as parths),
     openHint: () => axiosInstance.get<Hint>("/user/openhint" as parths),
-    sendCode: (body) => axiosInstance.post<sendCode>("/user/code" as parths, { data: { ...body } }),
-    sendHints: (body) => axiosInstance.post<Hint>("/user/hints" as parths, { data: { ...body } }),
+    sendCode: (body) => axiosInstance.post<sendCode>("/user/code" as parths, { ...body }),
+    sendHints: (body) => axiosInstance.post<Hint>("/user/hints" as parths, { ...body }),
     logout: () => axiosInstance.get<any>("/auth/logout" as parths),
 }
 
