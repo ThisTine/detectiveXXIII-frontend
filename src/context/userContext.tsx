@@ -17,7 +17,7 @@ type userType = {
     ingame: { partnercount: number; partnerinfo?: { username: String; image: String }[] }
 }
 
-const userContext = createContext<{ user: userType | null; logout: () => void; mutateLife: (amount: number) => void }>({
+const userContext = createContext<{ user: User | null; logout: () => void; mutateLife: (amount: number) => void }>({
     user: null,
     logout: () => {},
     mutateLife: (amount) => {},
