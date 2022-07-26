@@ -9,24 +9,21 @@ import Notfound from "./pages/NotFound"
 import Setup from "./pages/Setup"
 import Waiting from "./pages/Waiting"
 
-
 function App() {
-  return (
-    <UserContextProvider>
-      <Routes>
-        <Route path='/' element={<Home/>}  />
-        <Route path='/login' element={<Login/>} />
-        <Route path="/waiting" element={<Waiting/>} />
-        <Route path="/setup" element={<Setup/>} />
-        <Route path="/code" element={<Code />} />
-        <Route path="/hints" element={<Hints/>} />
-        <Route path="/finish" element={<Finish/>} />
-        <Route path="*" element={<Notfound/>}  />
-      </Routes>
-    </UserContextProvider>
-
-
-  )
+    return (
+        <UserContextProvider>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/waiting" element={<Waiting />} />
+                <Route path="/setup" element={<Setup />} />
+                <Route path="/code" element={<Code />} />
+                <Route path="/hints" element={<Hints />} />
+                <Route path="/finish" element={<Finish />} />
+                <Route path="*" element={<Notfound />} />
+            </Routes>
+        </UserContextProvider>
+    )
 }
 
 export default App
