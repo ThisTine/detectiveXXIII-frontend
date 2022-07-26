@@ -27,7 +27,7 @@ export const checkError = (input: string, hints: string[]) => {
     }
 }
 const Setup = () => {
-    const [hints, sethints] = useState<hints>(["นี้ hint", "ก็ hints", "นู้น hint", "นั้น hint", "นู่น", "นี่", "นั่น", "8", "9"])
+    const [hints, sethints] = useState<hints>([])
     const [input, setInput] = useState("")
     const InputChange = (e: { target: { value: React.SetStateAction<string> } }) => setInput(e.target.value)
 
