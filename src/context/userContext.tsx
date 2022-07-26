@@ -33,12 +33,12 @@ export const UserContextProvider = (props: any) => {
             const { data } = await api.getUser()
             if (data) {
                 setUser({ ...data })
-                // if (!data.hints || data.hints.length !== 10) {
-                //     navigate("/setup", { replace: true })
-                // }
-                // if ((data.hints.length === 10 && data.partnerCount <= 1) || (data.hints.length === 10 && !data.isGameReady)) {
-                //     navigate("/waiting", { replace: true })
-                // }
+                if (!data.hints || data.hints.length !== 10) {
+                    navigate("/setup", { replace: true })
+                }
+                if ((data.hints.length === 10 && data.partnerCount <= 1) || (data.hints.length === 10 && !data.isGameReady)) {
+                    navigate("/waiting", { replace: true })
+                }
             }
         } catch (err) {
             navigate("/login", { replace: true })
