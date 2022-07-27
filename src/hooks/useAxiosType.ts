@@ -12,6 +12,7 @@ export interface User {
     status: userStatusType
     isGameReady: boolean
     partnerCount: number
+    img: { type: "Buffer"; data: number[] }
 }
 
 export interface Code {
