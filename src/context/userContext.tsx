@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import useAxios from "../hooks/useAxios"
 import Loading from "../pages/Loading"
 import api from "../hooks/useAxios"
-import { User } from "../hooks/useAxiosType"
+import { User, userStatusType } from "../hooks/useAxiosType"
 import Unauthorized from "../pages/Unauthorized"
 
 type userType = {
@@ -17,10 +17,16 @@ type userType = {
     ingame: { partnercount: number; partnerinfo?: { username: String; image: String }[] }
 }
 
-const userContext = createContext<{ user: User | null; logout: () => void; mutateLife: (amount: number) => void }>({
+const userContext = createContext<{
+    user: User | null
+    logout: () => void
+    mutateLife: (amount: number) => void
+    changeStatus: (status: userStatusType) => void
+}>({
     user: null,
     logout: () => {},
     mutateLife: (amount) => {},
+    changeStatus: (status) => {},
 })
 
 export const UserContextProvider = (props: any) => {
@@ -33,12 +39,6 @@ export const UserContextProvider = (props: any) => {
             const { data } = await api.getUser()
             if (data) {
                 setUser({ ...data })
-                // if (!data.hints || data.hints.length !== 10) {
-                //     navigate("/setup", { replace: true })
-                // }
-                // if ((data.hints.length === 10 && data.partnerCount <= 1) || (data.hints.length === 10 && !data.isGameReady)) {
-                //     navigate("/waiting", { replace: true })
-                // }
             }
         } catch (err) {
             navigate("/login", { replace: true })
@@ -54,6 +54,10 @@ export const UserContextProvider = (props: any) => {
         }
     }, [])
 
+    const changeStatus = (status: userStatusType) => {
+        setUser((val) => (val ? { ...val, status } : null))
+    }
+
     const mutateLife = (amount: number) => {
         setUser((val) => (val ? { ...val, lifes: val.lifes - amount } : null))
     }
@@ -61,11 +65,22 @@ export const UserContextProvider = (props: any) => {
     useEffect(() => {
         init().finally(off)
     }, [init])
+
+    useEffect(() => {
+        if (user) {
+            if (user.status === "filling_hints") {
+                return navigate("/setup", { replace: true })
+            }
+            if (user.status === "waiting") {
+                return navigate("/waiting", { replace: true })
+            }
+        }
+    }, [user])
     if (isLoading) return <Loading />
 
     // if (!user) return <Unauthorized />
 
-    return <userContext.Provider value={{ user: user, logout, mutateLife }} {...props} />
+    return <userContext.Provider value={{ user: user, logout, mutateLife, changeStatus }} {...props} />
 }
 
 export default userContext

@@ -7,6 +7,7 @@ import { AiOutlineArrowRight } from "react-icons/ai"
 import ListHint from "../components/ListHint"
 export type hints = string[]
 import { useAppToast } from "../hooks/toast"
+import api from "../hooks/useAxios"
 
 export const setupContext = createContext({
     onEdit: (index: number) => {},
@@ -29,6 +30,7 @@ export const checkError = (input: string, hints: string[]) => {
 const Setup = () => {
     const [hints, sethints] = useState<hints>(["อันนี้ hint", "อันนี้ก็ hints", "อันนู้น hint", "อันนั้นก็ hint", "นู่น", "นี่", "นั่น", "8", "9"])
     const [input, setInput] = useState("")
+
     const InputChange = (e: { target: { value: React.SetStateAction<string> } }) => setInput(e.target.value)
 
     const [indexHint, setIndexHint] = useState(-1)
