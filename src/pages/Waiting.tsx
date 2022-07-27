@@ -16,7 +16,8 @@ type year = 1 | 2
 // oncilck use func submit
 
 const Waiting = () => {
-    const {user} = useContext(userContext)
+    const {user, init} = useContext(userContext)
+
     const [code, setCode] = useState("")
     const toast = useToast()
     const [isLoading, { on, off }] = useBoolean()
@@ -24,8 +25,8 @@ const Waiting = () => {
     const Submit = async() => {
         on()
         try{
-           const res = await api.sendCode({code : code})
-           console.log(res)
+           await api.sendCode({code : code})
+           await init()
         }catch (err : any) {
             Error(err.response.data)
             console.log(err);
