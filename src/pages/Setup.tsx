@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useContext, useState } from "react"
 import { Box, Center, CloseButton, Flex, FormControl, FormErrorMessage, HStack, Input, Text } from "@chakra-ui/react"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
@@ -8,6 +8,8 @@ import ListHint from "../components/ListHint"
 export type hints = string[]
 import { useAppToast } from "../hooks/toast"
 import api from "../hooks/useAxios"
+import userContext from "../context/userContext"
+import { Navigate } from "react-router-dom"
 
 export const setupContext = createContext({
     onEdit: (index: number) => {},
@@ -124,4 +126,12 @@ const Setup = () => {
     }
 }
 
-export default Setup
+const SetUpWithRedirect = () => {
+    const {
+        user: { status },
+    } = useContext(userContext)
+    if (status === "filling_hints") return <Setup />
+    return <Navigate to="/" />
+}
+
+export default SetUpWithRedirect

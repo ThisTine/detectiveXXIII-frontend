@@ -45,14 +45,13 @@ function HintCard({ text, index }: { text: string; index: number }) {
 }
 
 function ListHint({ hints }: { hints: string[] }) {
-    const { changeStatus } = useContext(userContext)
+    const { init } = useContext(userContext)
     const [isLoading, { on, off }] = useBoolean()
     const SubmitHints = async () => {
         on()
         try {
-            const { data } = await api.sendHints({ hints })
-            changeStatus("waiting")
-            console.log(data)
+            await api.sendHints({ hints })
+            await init()
         } catch (error) {
             console.log(error)
         }

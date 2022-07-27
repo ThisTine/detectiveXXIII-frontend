@@ -1,44 +1,57 @@
-import { Heading, useBoolean, useToast } from "@chakra-ui/react"
+import { useBoolean, useToast } from "@chakra-ui/react"
 import { createContext, useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import useAxios from "../hooks/useAxios"
 import Loading from "../pages/Loading"
 import api from "../hooks/useAxios"
-import { User, userStatusType } from "../hooks/useAxiosType"
-import Unauthorized from "../pages/Unauthorized"
-
-type userType = {
-    id: String
-    username: String
-    email: String
-    hints: []
-    isPlayable: boolean
-    img: { type: "Buffer"; data: number[] }
-    ingame: { partnercount: number; partnerinfo?: { username: String; image: String }[] }
-}
+import { Partner, User, userStatusType } from "../hooks/useAxiosType"
 
 const userContext = createContext<{
-    user: User | null
+    user: User
+    partner: Partner
     logout: () => void
     mutateLife: (amount: number) => void
     changeStatus: (status: userStatusType) => void
+    init: () => Promise<void>
 }>({
-    user: null,
+    user: null as any,
+    partner: null as any,
     logout: () => {},
     mutateLife: (amount) => {},
     changeStatus: (status) => {},
+    init: async () => {},
 })
 
 export const UserContextProvider = (props: any) => {
     const [isLoading, { off }] = useBoolean(true)
     const [user, setUser] = useState<User | null>(null)
+    const [partners, setPartners] = useState<Partner>({ partners: [] })
     const navigate = useNavigate()
     const toast = useToast({ status: "error" })
     const init = useCallback(async () => {
         try {
             const { data } = await api.getUser()
+            let partnerslist: Partner | null = null
+            try {
+                const { data: partners } = await api.getPartners()
+                if (partners) partnerslist = { ...partners }
+            } catch (err) {
+                partnerslist = null
+            }
+
+            if (partnerslist) {
+                setPartners(partnerslist)
+            }
             if (data) {
                 setUser({ ...data })
+                if (data.partnerCount > 1 && partnerslist?.partners.length === data.partnerCount - 1) {
+                    return navigate("/finish", { replace: true })
+                }
+                if (data.status === "filling_hints") {
+                    return navigate("/setup", { replace: true })
+                }
+                if (data.status === "waiting" || data.status === "game_disable") {
+                    return navigate("/waiting", { replace: true })
+                }
             }
         } catch (err) {
             navigate("/login", { replace: true })
@@ -66,21 +79,11 @@ export const UserContextProvider = (props: any) => {
         init().finally(off)
     }, [init])
 
-    useEffect(() => {
-        if (user) {
-            if (user.status === "filling_hints") {
-                return navigate("/setup", { replace: true })
-            }
-            if (user.status === "waiting") {
-                return navigate("/waiting", { replace: true })
-            }
-        }
-    }, [user])
     if (isLoading) return <Loading />
 
     // if (!user) return <Unauthorized />
 
-    return <userContext.Provider value={{ user: user, logout, mutateLife, changeStatus }} {...props} />
+    return <userContext.Provider value={{ user: user, logout, mutateLife, changeStatus, init, partner: partners.partners }} {...props} />
 }
 
 export default userContext

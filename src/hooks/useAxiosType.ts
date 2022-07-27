@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 
-export type userStatusType = "filling_hints" | "waiting" | "playing"
+export type userStatusType = "filling_hints" | "waiting" | "playing" | "game_disable"
 
 export interface User {
     id: string
