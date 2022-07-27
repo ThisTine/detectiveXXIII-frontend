@@ -36,7 +36,7 @@ export interface Partner {
 export interface sendCode {
     status: "paring_with_partner" | "paring_success" | "paring_fail" | "event"
     event_next_hint?: string
-    opened_hint?: string
+    opened_hint?: string[]
 }
 
 export interface sendCodeBody {
