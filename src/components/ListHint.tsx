@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, HStack, Stack, Text, useBoolean, VStack } from "@chakra-ui/react"
 import { useContext } from "react"
 import { BsCircleFill } from "react-icons/bs"
+import userContext from "../context/userContext"
 import api from "../hooks/useAxios"
 import AppLayout from "../layouts/AppLayout"
 import { setupContext } from "../pages/Setup"
@@ -44,13 +45,13 @@ function HintCard({ text, index }: { text: string; index: number }) {
 }
 
 function ListHint({ hints }: { hints: string[] }) {
+    const { init } = useContext(userContext)
     const [isLoading, { on, off }] = useBoolean()
     const SubmitHints = async () => {
         on()
         try {
-            const { data } = await api.sendHints({ hints })
-            // window.location.reload()
-            console.log(data)
+            await api.sendHints({ hints })
+            await init()
         } catch (error) {
             console.log(error)
         }

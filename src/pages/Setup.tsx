@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useContext, useState } from "react"
 import { Box, Center, CloseButton, Flex, FormControl, FormErrorMessage, HStack, Input, Text } from "@chakra-ui/react"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
@@ -7,6 +7,9 @@ import { AiOutlineArrowRight } from "react-icons/ai"
 import ListHint from "../components/ListHint"
 export type hints = string[]
 import { useAppToast } from "../hooks/toast"
+import api from "../hooks/useAxios"
+import userContext from "../context/userContext"
+import { Navigate } from "react-router-dom"
 
 export const setupContext = createContext({
     onEdit: (index: number) => {},
@@ -27,8 +30,9 @@ export const checkError = (input: string, hints: string[]) => {
     }
 }
 const Setup = () => {
-    const [hints, sethints] = useState<hints>(["นี้ hint", "ก็ hints", "นู้น hint", "นั้น hint", "นู่น", "นี่", "นั่น", "8", "9"])
+    const [hints, sethints] = useState<hints>([])
     const [input, setInput] = useState("")
+
     const InputChange = (e: { target: { value: React.SetStateAction<string> } }) => setInput(e.target.value)
 
     const [indexHint, setIndexHint] = useState(-1)
@@ -122,4 +126,12 @@ const Setup = () => {
     }
 }
 
-export default Setup
+const SetUpWithRedirect = () => {
+    const {
+        user: { status },
+    } = useContext(userContext)
+    if (status === "filling_hints") return <Setup />
+    return <Navigate to="/" />
+}
+
+export default SetUpWithRedirect

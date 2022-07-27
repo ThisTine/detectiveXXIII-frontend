@@ -7,6 +7,8 @@ import { useToast } from "@chakra-ui/react"
 import { FormControl } from "@chakra-ui/react"
 import userContext from "../context/userContext"
 import api from "../hooks/useAxios"
+import { Navigate } from "react-router-dom"
+import GameNotReady from "./GameNotReady"
 
 type year = 1 | 2
 
@@ -103,4 +105,13 @@ const Waiting = () => {
     )
 }
 
-export default Waiting
+const WaitingWithReditect = () => {
+    const {
+        user: { status },
+    } = useContext(userContext)
+    if (status === "waiting") return <Waiting />
+    if (status === "game_disable") return <GameNotReady />
+    return <Navigate to="/" />
+}
+
+export default WaitingWithReditect
