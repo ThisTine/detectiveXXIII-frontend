@@ -1,4 +1,4 @@
-import { Box, Flex, Input, Text } from "@chakra-ui/react"
+import { Box, Flex, Input, Text, useBoolean } from "@chakra-ui/react"
 import { ChangeEvent, useContext, useState } from "react"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
@@ -6,6 +6,7 @@ import AppLayout from "../layouts/AppLayout"
 import { useToast } from "@chakra-ui/react"
 import { FormControl } from "@chakra-ui/react"
 import userContext from "../context/userContext"
+import api from "../hooks/useAxios"
 import { Navigate } from "react-router-dom"
 import GameNotReady from "./GameNotReady"
 
@@ -15,13 +16,24 @@ type year = 1 | 2
 // oncilck use func submit
 
 const Waiting = () => {
-    const { user } = useContext(userContext)
+    const {user, init} = useContext(userContext)
+
     const [code, setCode] = useState("")
     const toast = useToast()
+    const [isLoading, { on, off }] = useBoolean()
 
-    function Submit(e: any) {
-        alert(`Your Code: ${code}`)
-        e.preventDefault()
+    const Submit = async() => {
+        on()
+        try{
+           await api.sendCode({code : code})
+           await init()
+        }catch (err : any) {
+            Error(err.response.data)
+            console.log(err);
+          }
+        
+        
+        
     }
     const Error = (text: string) => {
         toast({
@@ -38,7 +50,7 @@ const Waiting = () => {
         <div>
             <AppLayout>
                 {user?.year === 1 ? ( // Wating Page year 1
-                    <BoxContainer Button={<PrimaryButton onClick={Submit}>Pair</PrimaryButton>}>
+                    <BoxContainer Button={<PrimaryButton onClick={() => Submit().finally(off) } isLoading={isLoading}>Pair</PrimaryButton>}>
                         <Flex align="center" justify="center" flexDirection={["column"]}>
                             <Box mb={10}>
                                 <Text fontSize={40} color={"#AD89FF"} textAlign={["center"]}>
