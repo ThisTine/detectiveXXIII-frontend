@@ -23,12 +23,22 @@ const mockhints: hints = [
   { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 3 },
   { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 4 },
   { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 5 },
+  { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 6 },
+  { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 7 },
+  { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 8 },
+  { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 9 },
+  { userId: 1, hint: "ทดสอบ 1", isShow: false, id: 10 },
   //if have user2
   { userId: 2, hint: "ทดสอบ 2", isShow: true, id: 1 },
   { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 2 },
   { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 3 },
   { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 4 },
   { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 5 },
+  { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 6 },
+  { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 7 },
+  { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 8 },
+  { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 9 },
+  { userId: 2, hint: "ทดสอบ 2", isShow: false, id: 10 },
 ];
 
 const Hints = () => {
