@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import Lottie from "lottie-react"
 import { FC } from "react"
+import Confetti from "react-confetti"
 import { Link } from "react-router-dom"
 import paringFailed from "../../animation/paring_failed.json"
 import paringSuccess from "../../animation/paring_success.json"
@@ -22,6 +23,7 @@ import paringSuccess from "../../animation/paring_success.json"
 const ParingModal: FC<{ isOpen: boolean; onClose: () => void; isSuccess?: boolean }> = ({ isOpen, onClose, isSuccess }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
+            {isSuccess && <Confetti />}
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader />
