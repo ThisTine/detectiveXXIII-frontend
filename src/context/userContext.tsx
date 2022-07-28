@@ -12,13 +12,15 @@ const userContext = createContext<{
     mutateLife: (amount: number) => void
     changeStatus: (status: userStatusType) => void
     init: () => Promise<void>
+    initPartners: () => Promise<Partner>
 }>({
     user: null as any,
-    partner: null as any,
+    partner: { partners: [] },
     logout: () => {},
     mutateLife: (amount) => {},
     changeStatus: (status) => {},
     init: async () => {},
+    initPartners: async () => ({} as any),
 })
 
 export const UserContextProvider = (props: any) => {
@@ -27,6 +29,16 @@ export const UserContextProvider = (props: any) => {
     const [partners, setPartners] = useState<Partner>({ partners: [] })
     const navigate = useNavigate()
     const toast = useToast({ status: "error" })
+    const initPartners: () => Promise<Partner> = async () => {
+        try {
+            const { data: partners } = await api.getPartners()
+            if (partners) {
+                setPartners({ ...partners })
+                return { ...partners }
+            }
+        } catch (err) {}
+        return { partners: [] }
+    }
     const init = useCallback(async () => {
         try {
             const { data } = await api.getUser()
@@ -83,7 +95,7 @@ export const UserContextProvider = (props: any) => {
 
     // if (!user) return <Unauthorized />
 
-    return <userContext.Provider value={{ user: user, logout, mutateLife, changeStatus, init, partner: partners.partners }} {...props} />
+    return <userContext.Provider value={{ user: user, logout, mutateLife, changeStatus, init, partner: partners, initPartners }} {...props} />
 }
 
 export default userContext
