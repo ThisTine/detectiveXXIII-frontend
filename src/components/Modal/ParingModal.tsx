@@ -35,11 +35,13 @@ const ParingModal: FC<{ isOpen: boolean; onClose: () => void; isSuccess?: boolea
                         <Text fontSize={isSuccess ? "xl" : "3xl"}>
                             {isSuccess ? "But you still have 1 more, keep trying " : "Don't be sad, keep trying !"}
                         </Text>
-                        <Box>
-                            <Button size="lg" shadow={"lg"} colorScheme={"green"} rounded="full" mt={5}>
-                                <Link to={"/finish"}>See who you just paired with !</Link>
-                            </Button>
-                        </Box>
+                        {isSuccess && (
+                            <Box>
+                                <Button size="lg" shadow={"lg"} colorScheme={"green"} rounded="full" mt={5}>
+                                    <Link to={"/finish"}>See who you just paired with !</Link>
+                                </Button>
+                            </Box>
+                        )}
                     </VStack>
                 </ModalBody>
 
