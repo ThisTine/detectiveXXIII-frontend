@@ -83,7 +83,7 @@ const Finish = () => {
         user: { partnerCount },
     } = useContext(userContext)
     const navigate = useNavigate()
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!partners.length) {
             navigate("/", { replace: true })
         }
