@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Heading, useBreakpointValue, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, Heading, Image, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { useContext } from "react"
-import { BsMicrosoft, BsUmbrella } from "react-icons/bs"
+import { BsMicrosoft } from "react-icons/bs"
 import { Navigate } from "react-router-dom"
 import userContext from "../context/userContext"
+import DetectiveImage from "../images/detective.png"
 import AppLayout from "../layouts/AppLayout"
 
 const Login = () => {
@@ -26,7 +27,7 @@ const Login = () => {
                     color="mainBtn.700"
                 >
                     {/* TODO: Change to incognito logo */}
-                    <BsUmbrella size="100px" />
+                    <Image src={DetectiveImage} width="128px" />
                 </Flex>
                 <Heading textAlign={"center"} fontWeight={500} color="mainBtn.700" textTransform={"uppercase"}>
                     Login {isWeb && "/ Register"}
