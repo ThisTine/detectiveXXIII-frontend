@@ -11,11 +11,6 @@ import AppLayout from "../layouts/AppLayout"
 
 type User = { name: string; img: { type: "Buffer"; data: number[] } | null }
 
-type Partner = {
-    count: 1 | 2
-    users: User[]
-}
-
 type CarouselCompProp = {
     users: User[]
 }
