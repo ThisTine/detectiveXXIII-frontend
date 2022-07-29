@@ -40,7 +40,7 @@ const Hints = () => {
     const renderButton = () => {
         if (user2.length != 0) {
             return (
-                <Flex>
+                <Flex m={2}>
                     <Button marginRight="2" bg={current === 1 ? "purple.200" : "white"} width="50px" height="30px" onClick={() => setCurrent(1)}>
                         1
                     </Button>
@@ -82,7 +82,7 @@ const Hints = () => {
     if (initializing) {
         return (
             <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
-                <Heading color="#BDA2FF" fontWeight="light" mt={10}>
+                <Heading color="#BDA2FF" fontWeight="light" mt={28}>
                     LIST OF HINTS
                 </Heading>
                {[...Array(10)].map((_, index) => <HintCardsLoading key={index}/>)}
@@ -91,7 +91,7 @@ const Hints = () => {
     }
     return (
         <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
-            <Heading color="#BDA2FF" fontWeight="light" mt={10}>
+            <Heading color="#BDA2FF" fontWeight="light" mt={28}>
                 LIST OF HINTS
             </Heading>
             {renderButton()}
@@ -107,7 +107,7 @@ const Hints = () => {
             >
                 <Icon as={FaUnlock} w={5} h={5} />
             </Button>
-            <Box width="100%" height="30px"></Box>
+            <Box width="100%" height="30px" mb={10}></Box>
             {/* modal part */}
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
