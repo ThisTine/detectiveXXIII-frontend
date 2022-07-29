@@ -82,7 +82,7 @@ const Hints = () => {
     if (initializing) {
         return (
             <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
-                <Heading color="#BDA2FF" fontWeight="light">
+                <Heading color="#BDA2FF" fontWeight="light" mt={10}>
                     LIST OF HINTS
                 </Heading>
                {[...Array(10)].map((_, index) => <HintCardsLoading key={index}/>)}
@@ -91,7 +91,7 @@ const Hints = () => {
     }
     return (
         <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
-            <Heading color="#BDA2FF" fontWeight="light">
+            <Heading color="#BDA2FF" fontWeight="light" mt={10}>
                 LIST OF HINTS
             </Heading>
             {renderButton()}
