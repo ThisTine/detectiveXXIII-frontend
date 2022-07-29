@@ -12,45 +12,42 @@ type code = {
 
 const Code = () => {
     const [code, setCode] = useState<code>({
-        code: "X23AD",
-        end: dayjs().add(1, "m"),
+        code: "",
+        end: dayjs().add(90, "s"),
     })
+    const [time, setTime] = useState<null | number>(null)
 
     const getCode = async () => {
         try {
             const { data } = await api.getCode()
+            await setCode({
+                code: data.code,
+                end: dayjs(data.end),
+            })
+            let now = dayjs()
+            let end = dayjs(data.end)
+            setTime(end.diff(now, "s"))
             if (data) {
-                console.log(data)
+                console.log(code)
             }
         } catch (err) {}
     }
 
-    const countdown = () => {
-        const now = dayjs()
-        return code.end.diff(now, "s")
-    }
-    const [time, setTime] = useState(countdown())
-
-    useLayoutEffect(() => {
-        getCode()
-        setTime(countdown())
-    }, [])
-
     useEffect(() => {
-        const timer = setInterval(() => {
-            const now = dayjs()
-            const timeLeft = countdown()
-            if (now.isAfter(code.end)) {
-                setCode({
-                    code: "X23AD",
-                    end: dayjs().add(1, "m"),
-                })
-            } else {
-                setTime(timeLeft)
+        const timer = setTimeout(() => {
+            if (time && time > 0) {
+                setTime((time) => (time === null ? null : time - 1))
             }
         }, 1000)
-        return () => clearInterval(timer)
-    }, [])
+        return () => clearTimeout(timer)
+    }, [time])
+
+    useLayoutEffect(() => {
+        if (time === 0 || time === null) {
+            console.log("getting code", time)
+            getCode()
+        }
+    }, [time])
 
     return (
         <AppLayout nav>
@@ -99,7 +96,7 @@ const Code = () => {
                                     height="53"
                                     py={3}
                                 >
-                                    <Text textAlign="center" color="#AD89FF" fontWeight={500} fontSize="17px" textTransform="uppercase">
+                                    <Text textAlign="center" color="#AD89FF" fontWeight={500} fontSize="17px">
                                         {code.code}
                                     </Text>
                                 </Box>
