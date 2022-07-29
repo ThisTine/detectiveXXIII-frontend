@@ -1,5 +1,5 @@
 import { useBoolean, useToast } from "@chakra-ui/react"
-import { createContext, useCallback, useEffect, useState } from "react"
+import { createContext, useCallback, useEffect, useLayoutEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Loading from "../pages/Loading"
 import api from "../hooks/useAxios"
@@ -86,7 +86,11 @@ export const UserContextProvider = (props: any) => {
     const mutateLife = (amount: number) => {
         setUser((val) => (val ? { ...val, lifes: val.lifes - amount } : null))
     }
-
+    useLayoutEffect(() => {
+        if (user && user.partnerCount > 1 && partners?.partners.length === user.partnerCount - 1) {
+            return navigate("/finish", { replace: true })
+        }
+    }, [navigate, user, partners])
     useEffect(() => {
         init().finally(off)
     }, [init])
