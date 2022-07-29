@@ -51,9 +51,10 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_PASSWORD }}
             script: |
+            echo '${{secrets.CONTAINER_ENV}}' > ${{secrets.ENV_PATH}}
               echo '${{secrets.CONTAINER_LABEL}}' > ${{secrets.LABEL_PATH}}
               docker pull ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}:latest
               docker stop ${{secrets.CONTAINER_NAME}}
               docker rm ${{secrets.CONTAINER_NAME}}
-              docker run -d --name ${{secrets.CONTAINER_NAME}} --label-file ${{secrets.LABEL_PATH}} --network proxy ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}
+              docker run -d --name ${{secrets.CONTAINER_NAME}} --env-file ${{secrets.ENV_PATH}} --label-file ${{secrets.LABEL_PATH}} --network proxy ${{secrets.DOCKER_REGISTRY}}/${{secrets.DOCKER_IMAGE}}
               docker system prune -af
