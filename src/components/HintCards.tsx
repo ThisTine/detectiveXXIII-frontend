@@ -9,9 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { FaLock, FaCheck } from "react-icons/fa";
 interface HintCardsProps {
-  hints: { userId: 1 | 2; hint: string; isShow: boolean; id: number };
+  hints: { userId: 1 | 2; hint: string; isShow: boolean;};
+  id : number;
 }
-function HintCards({ hints }:HintCardsProps) {
+function HintCards({ hints,id }:HintCardsProps) {
   return (
     <Box
       minW="300px"
@@ -36,7 +37,7 @@ function HintCards({ hints }:HintCardsProps) {
           </Flex>
           <Flex flexDirection="column">
             <Heading as="h3" size="sm" fontWeight="semibold">
-              HINT {hints.id}
+              HINT {id+1}
             </Heading>
             <UnorderedList>
               <ListItem
