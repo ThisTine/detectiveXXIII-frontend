@@ -1,15 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react"
 import { Carousel } from "@trendyol-js/react-carousel"
-import React, { useEffect, useState } from "react"
+import { useContext, useEffect, useLayoutEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
+import userContext from "../context/userContext"
 import getImageUrl from "../functions/getImageUrl"
 import AppLayout from "../layouts/AppLayout"
-import mockimg from "../mockup/image.json"
-import mockimg2 from "../mockup/image2.json"
 
-type User = { name: string; img: { type: "Buffer"; data: number[] } }
+type User = { name: string; img: { type: "Buffer"; data: number[] } | null }
 
 type Partner = {
     count: 1 | 2
@@ -55,7 +55,13 @@ const CarouselComp = (props: CarouselCompProp) => {
         >
             {props.users.map((user, index) => (
                 <Flex key={index} padding={5} direction="column" alignItems="center" gap={4}>
-                    <Avatar width="210" height="210" name={user.name} src={getImageUrl(user.img.data)} boxShadow="0px 4px 15px rgba(0, 0, 0, 0.25)" />
+                    <Avatar
+                        width="210"
+                        height="210"
+                        name={user.name}
+                        src={getImageUrl(user.img?.data)}
+                        boxShadow="0px 4px 15px rgba(0, 0, 0, 0.25)"
+                    />
                     <Box
                         backgroundColor="#FFFFFF"
                         border="0.5px solid rgba(0, 0, 0, 0.23)"
@@ -77,22 +83,28 @@ const CarouselComp = (props: CarouselCompProp) => {
 }
 
 const Finish = () => {
-    const [partners, setPartners] = useState<Partner>({
-        count: 2,
-        users: [{ name: "Sittichok Ouamsiri", img: { type: "Buffer", data: mockimg } }],
-    })
-
-    // Mockup function to simulate state of 2 partners
-    const findMore = () => {
-        setPartners((partners) => ({
-            ...partners,
-            users: [...partners.users, { name: "Pongsapak Lubkim", img: { type: "Buffer", data: mockimg2 } }],
-        }))
-    }
+    const {
+        partner: { partners },
+        user: { partnerCount },
+    } = useContext(userContext)
+    const navigate = useNavigate()
+    useLayoutEffect(() => {
+        if (!partners.length) {
+            navigate("/", { replace: true })
+        }
+    }, [navigate, partners])
 
     return (
-        <AppLayout nav>
-            <BoxContainer Button={partners.count > partners.users.length && <PrimaryButton onClick={findMore}>Find one more</PrimaryButton>}>
+        <AppLayout>
+            <BoxContainer
+                Button={
+                    partnerCount - 1 > partners.length && (
+                        <Link to={"/"}>
+                            <PrimaryButton>Find one more</PrimaryButton>
+                        </Link>
+                    )
+                }
+            >
                 <Flex direction="column" alignItems="center" maxHeight="calc(100vh - 240px)" gap="6">
                     <Text fontSize="4xl" fontWeight="bold" color="mainBtn.900">
                         Congratulation!
@@ -100,7 +112,7 @@ const Finish = () => {
                     <Text fontSize="xl" color="mainBtn.700">
                         Your match is:
                     </Text>
-                    <CarouselComp users={partners.users} />
+                    <CarouselComp users={partners} />
                 </Flex>
             </BoxContainer>
         </AppLayout>
