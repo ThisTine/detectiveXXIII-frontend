@@ -84,12 +84,14 @@ const Home = () => {
                 }
             }
             if (status === "event") {
-                if (event_next_hint && opened_hint) {
-                    sethints([...opened_hint])
+                if (event_next_hint) {
                     setMission(event_next_hint || "")
+                }
+                if (opened_hint) {
+                    sethints([...opened_hint])
                     setModal("event")
                 }
-                console.log(event_next_hint, opened_hint)
+                setMission(null)
             }
             setCode("")
             off()
