@@ -12,7 +12,7 @@ import Waiting from "./pages/Waiting"
 
 function App() {
     useLayoutEffect(() => {
-        document.title = "DETECTIVEXXIII"
+        document.title = "DETECTIVEXXIII-staging"
     }, [])
     return (
         <UserContextProvider>
