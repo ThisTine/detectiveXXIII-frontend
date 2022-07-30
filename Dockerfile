@@ -4,11 +4,9 @@ WORKDIR /detectivexiiifrontend
 
 COPY . .
 
+RUN ls -a
+
 RUN npm install
-
-ARG VITE_MODE
-
-ENV VITE_MODE=$VITE_MODE
 
 RUN npm run build
 
