@@ -24,4 +24,10 @@ dist-ssr
 *.sw?
 
 env
+<<<<<<< HEAD
 .env
+
+dev-dist
+=======
+.env
+>>>>>>> main

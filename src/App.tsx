@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 import { UserContextProvider } from "./context/userContext"
 import Code from "./pages/Code"
@@ -10,6 +11,9 @@ import Setup from "./pages/Setup"
 import Waiting from "./pages/Waiting"
 
 function App() {
+    useLayoutEffect(() => {
+        document.title = "DETECTIVEXXIII-staging"
+    }, [])
     return (
         <UserContextProvider>
             <Routes>
