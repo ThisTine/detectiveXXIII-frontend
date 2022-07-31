@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react"
-import React, { useContext, useLayoutEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useContext } from "react"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
 import userContext from "../context/userContext"
@@ -14,17 +14,13 @@ const Finish = () => {
         partner: { partners },
         user: { partnerCount },
     } = useContext(userContext)
-    const navigate = useNavigate()
 
     const avatarSize = useBreakpointValue({ base: "190px", md: "220px" })
     const avatarInset = useBreakpointValue({ base: "90px", md: "120px" })
 
-    useLayoutEffect(() => {
-        if (!partners.length) {
-            navigate("/", { replace: true })
-        }
-    }, [navigate, partners])
-
+    if (!partners.length) {
+        return <Navigate to={"/"} replace={true} />
+    }
     return (
         <AppLayout>
             <BoxContainer
