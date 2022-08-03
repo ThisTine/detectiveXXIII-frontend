@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useLayoutEffect, useState } from "react"
 import { Box, Center, CloseButton, Flex, FormControl, FormErrorMessage, HStack, Input, Text } from "@chakra-ui/react"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
@@ -32,6 +32,10 @@ export const checkError = (input: string, hints: string[]) => {
 const Setup = () => {
     const [hints, sethints] = useState<hints>([])
     const [input, setInput] = useState("")
+    useLayoutEffect(() => {
+        let hints = localStorage.getItem("hints")
+        sethints(hints ? JSON.parse(hints) : [])
+    }, [])
 
     const InputChange = (e: { target: { value: React.SetStateAction<string> } }) => setInput(e.target.value)
 
@@ -46,6 +50,9 @@ const Setup = () => {
         setInput(hints[index])
     }
     const submit = () => {
+        if (hints.length + 1 === 10) {
+            localStorage.setItem("hints", JSON.stringify(hints))
+        }
         sethints([...hints, input])
         setInput("")
     }
