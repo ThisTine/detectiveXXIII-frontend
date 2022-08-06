@@ -6,8 +6,6 @@ import AppLayout from "../layouts/AppLayout"
 import { AiOutlineArrowRight } from "react-icons/ai"
 import ListHint from "../components/ListHint"
 export type hints = string[]
-import { useAppToast } from "../hooks/toast"
-import api from "../hooks/useAxios"
 import userContext from "../context/userContext"
 import { Navigate } from "react-router-dom"
 
@@ -51,19 +49,13 @@ const Setup = () => {
     }
     const submit = () => {
         if (hints.length + 1 === 10) {
-            localStorage.setItem("hints", JSON.stringify(hints))
+            localStorage.setItem("hints", JSON.stringify([...hints, input]))
         }
         sethints([...hints, input])
         setInput("")
     }
-    const toast = useAppToast({ position: "top" })
     const isErrorByL = input.length > 10
     const isErrorByrepeat = hints.includes(input)
-    const toastError = () => {
-        if (checkError(input, hints)) {
-            toast.error("Fail", { description: checkError(input, hints) })
-        }
-    }
 
     if (hints.length < 10 || indexHint > -1) {
         return (
@@ -104,6 +96,7 @@ const Setup = () => {
                                     htmlSize={22}
                                     width="auto"
                                     placeholder="PUT YOUR HINT HERE"
+                                    autoComplete="off"
                                     textAlign="center"
                                     _placeholder={{ color: "#A680FF" }}
                                     size="lg"

@@ -2,6 +2,7 @@ import { Box, Flex, Heading, HStack, Stack, Text, useBoolean, VStack } from "@ch
 import { useContext } from "react"
 import { BsCircleFill } from "react-icons/bs"
 import userContext from "../context/userContext"
+import { useAppToast } from "../hooks/toast"
 import api from "../hooks/useAxios"
 import AppLayout from "../layouts/AppLayout"
 import { setupContext } from "../pages/Setup"
@@ -47,13 +48,14 @@ function HintCard({ text, index }: { text: string; index: number }) {
 function ListHint({ hints }: { hints: string[] }) {
     const { init } = useContext(userContext)
     const [isLoading, { on, off }] = useBoolean()
+    const toast = useAppToast()
     const SubmitHints = async () => {
         on()
         try {
             await api.sendHints({ hints })
             await init()
-        } catch (error) {
-            console.log(error)
+        } catch (error: any) {
+            toast.error("Error", { description: error.response?.data as string })
         }
     }
 
