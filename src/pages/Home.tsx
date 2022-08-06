@@ -58,6 +58,7 @@ const Home = () => {
 
     useLayoutEffect(() => {
         getMission()
+        localStorage.removeItem("hints")
     }, [])
     useLayoutEffect(() => {
         setCode(searchParams.get("code") || "")

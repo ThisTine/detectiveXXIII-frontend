@@ -2,13 +2,14 @@ import HintCards from "../components/HintCards"
 import AppLayout from "../layouts/AppLayout"
 import { FaUnlock } from "react-icons/fa"
 import { useContext, useLayoutEffect, useState } from "react"
-import { Button, Heading, Icon, Flex, Box, useBoolean } from "@chakra-ui/react"
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from "@chakra-ui/react"
+import { Button, Heading, Icon, Flex, Box, useBoolean, Tooltip } from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Image } from "@chakra-ui/react"
 import api from "../hooks/useAxios"
 import userContext from "../context/userContext"
 import { useAppToast } from "../hooks/toast"
 import HintCardsLoading from "../components/HIntCardsLoading"
+import { AiFillCamera } from "react-icons/ai"
+import preLoadImage from "../images/preload.jpg"
 
 type hints = { userId: 1 | 2; hint: string; isShow: boolean }[]
 type life = number
@@ -17,6 +18,7 @@ const Hints = () => {
     const [isLoading, { on, off }] = useBoolean()
     const toast = useAppToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: isOpenImg, onOpen: onOpenImg, onClose: onCloseImg } = useDisclosure()
     const [hints, setHints] = useState<hints>([])
     const { user, mutateLife } = useContext(userContext)
     const [current, setCurrent] = useState(1) // เก็บ num page
@@ -85,15 +87,34 @@ const Hints = () => {
                 <Heading color="#BDA2FF" fontWeight="light" mt={28}>
                     LIST OF HINTS
                 </Heading>
-               {[...Array(10)].map((_, index) => <HintCardsLoading key={index}/>)}
+                {[...Array(10)].map((_, index) => (
+                    <HintCardsLoading key={index} />
+                ))}
             </AppLayout>
         )
     }
     return (
         <AppLayout nav flexDirection="column" gap={{ base: "2", sm: "3" }}>
+            <Modal isOpen={isOpenImg} onClose={onCloseImg}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Photo</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Image src={import.meta.env.VITE_BASEURL + `/user/hints/img?id=${current}&date=${Date.now()}`} fallbackSrc={preLoadImage} />
+                    </ModalBody>
+
+                    <ModalFooter></ModalFooter>
+                </ModalContent>
+            </Modal>
             <Heading color="#BDA2FF" fontWeight="light" mt={28}>
                 LIST OF HINTS
             </Heading>
+            <Tooltip label="Save Photo" placement="top">
+                <Button pos={"fixed"} colorScheme="mainBtn" as="button" bottom={20} right={5} onClick={onOpenImg}>
+                    <AiFillCamera />
+                </Button>
+            </Tooltip>
             {renderButton()}
             {renderUser()}
             <Button
