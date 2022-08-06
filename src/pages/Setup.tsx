@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useLayoutEffect, useState } from "react"
+import React, { createContext, FormEvent, FormEventHandler, MouseEventHandler, useContext, useLayoutEffect, useState } from "react"
 import { Box, Center, CloseButton, Flex, FormControl, FormErrorMessage, HStack, Input, Text } from "@chakra-ui/react"
 import BoxContainer from "../components/BoxContainer"
 import PrimaryButton from "../components/PrimaryButton"
@@ -38,7 +38,8 @@ const Setup = () => {
     const InputChange = (e: { target: { value: React.SetStateAction<string> } }) => setInput(e.target.value)
 
     const [indexHint, setIndexHint] = useState(-1)
-    const EditHint = () => {
+    const EditHint = (e: FormEvent<HTMLDivElement>) => {
+        e.preventDefault()
         sethints(hints.map((hint, index) => (index === indexHint ? input : hint)))
         setInput("")
         setIndexHint(-1)
@@ -47,7 +48,8 @@ const Setup = () => {
         setIndexHint(index)
         setInput(hints[index])
     }
-    const submit = () => {
+    const submit = (e: FormEvent<HTMLDivElement>) => {
+        e.preventDefault()
         if (hints.length + 1 === 10) {
             localStorage.setItem("hints", JSON.stringify([...hints, input]))
         }
@@ -59,10 +61,10 @@ const Setup = () => {
 
     if (hints.length < 10 || indexHint > -1) {
         return (
-            <AppLayout flexDirection={"column"} maxW="md">
+            <AppLayout flexDirection={"column"} maxW="md" as="form" onSubmit={indexHint > -1 ? EditHint : submit}>
                 {indexHint > -1 ? (
                     <Flex justifyContent="flex-end" position="relative" width="100%">
-                        <CloseButton onClick={() => setIndexHint(-1)} />
+                        <CloseButton onClick={() => setIndexHint(-1)} type="button" />
                     </Flex>
                 ) : (
                     <Text color="#A680FF" fontSize="xl" alignSelf="flex-end" mr={4}>
@@ -72,7 +74,7 @@ const Setup = () => {
 
                 <BoxContainer
                     Button={
-                        <PrimaryButton onClick={indexHint > -1 ? EditHint : submit} isDisabled={!!checkError(input, hints)} cursor="pointer">
+                        <PrimaryButton type="submit" isDisabled={!!checkError(input, hints)} cursor="pointer">
                             <HStack>
                                 <Text>{indexHint > -1 ? "SUBMIT" : hints.length === 9 ? "Review" : "NEXT"}</Text>
                                 <AiOutlineArrowRight />
