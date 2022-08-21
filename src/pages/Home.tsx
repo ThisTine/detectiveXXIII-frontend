@@ -1,5 +1,5 @@
-import { Flex, VStack, Box, Avatar, Heading, FlexProps, useToast, FormControl, Input, useBoolean } from "@chakra-ui/react"
-import { ChangeEvent, FormEvent, FormEventHandler, useCallback, useContext, useLayoutEffect, useState } from "react"
+import { Flex, VStack, Box, Avatar, Heading, FlexProps, FormControl, Input, useBoolean } from "@chakra-ui/react"
+import { ChangeEvent, FormEvent, useCallback, useContext, useLayoutEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import MissionContainer from "../components/Home/MissionContainer"
 import userContext from "../context/userContext"
@@ -53,7 +53,7 @@ const Home = () => {
             } else {
                 setMission(null)
             }
-        } catch (err) {}
+        } catch (err) { }
     }, [])
 
     useLayoutEffect(() => {
@@ -112,7 +112,7 @@ const Home = () => {
             <Flex {...globalStyle}>
                 <VStack width="100%">
                     <Heading color="#A680FF" mb="12">
-                        Guess your P'รหัส
+                        Guess your {user.year === 1 ? "P'รหัส" : "N'รหัส"}
                     </Heading>
                     <MissionContainer
                         Button={
