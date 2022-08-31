@@ -33,7 +33,7 @@ const Finish = () => {
                 }
             >
                 {partners.length > 0 && (
-                    <Flex direction="column" alignItems="center" maxHeight="calc(100vh - 240px)" gap="6">
+                    <Flex direction="column" alignItems="center" gap="6">
                         <Text fontSize="4xl" fontWeight="bold" color="mainBtn.900">
                             Congratulation!
                         </Text>
@@ -65,8 +65,8 @@ const Finish = () => {
                             </Box>
                         ) : (
                             <Avatar
-                                width="210"
-                                height="210"
+                                width="210px"
+                                height="210px"
                                 name={partners[0].name}
                                 src={getImageUrl(partners[0].img?.data)}
                                 boxShadow="0px 4px 15px rgba(0, 0, 0, 0.25)"
